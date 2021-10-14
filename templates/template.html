@@ -1,0 +1,156 @@
+<html>
+
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <style>
+        *{
+            color:white;
+        }
+        html {
+            font-family: 'Rubik', sans-serif;
+            
+        }
+        body{
+            background-color:  #009999;
+        }
+
+        .header {
+            text-align: center;
+            padding-top: 40px;
+        }
+
+        .supersize {
+            font-size: 250px;
+            font-weight: 700;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .number {
+            display: inline;
+        }
+
+        .section {
+
+            height: 100%;
+        }
+
+        .navigation {
+            position: fixed;
+            top: 10;
+            left: 10;
+        }
+
+        .navigation a{
+            margin-right:30px;
+        }
+
+     
+
+        
+        a:visited{
+            color:white;
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+        a:hover{
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .table{
+            display:table;
+        }
+
+        .vcenter{
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        #center{
+            width: 50%;
+            margin:auto;
+        }
+    </style>
+    <script>
+        
+       
+    </script>
+</head>
+
+<body>
+   
+    <div class="navigation">
+        <a href="#teams" id="teams-link" class="big-icon"><i class="fas fa-futbol "></i> Teams</a>
+        <a href="#score" id="score-link" class="big-icon"><i class="fas fa-star-half-alt"></i> Score</a>
+        <a href="#hello">hello</a>
+        <i class="fas fa-address-book"></i> </div>
+   
+    <div class="container">
+
+        <section id="score" class="section table">
+            <div class="vcenter">
+                <div class="number">
+                        <span id="scoreTeam1" class="supersize">0</span>
+                </div>
+                <div class="number">
+                    <span class="supersize">:</span>
+                </div>
+                <div class="number">
+                    <span id="scoreTeam2" class="supersize">0</span>
+                </div>
+            </div>
+           
+                
+        </section>
+
+        <section id="teams" class="section table">
+            <div class="vcenter">
+                <div class="header">
+                    <h1>Teams</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
+                        labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+                        dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+                        amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+                        invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
+                        justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+                        dolor sit amet.
+                    </div>
+                    <div class="col-md-6">
+                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut
+                        labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+                        dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit
+                        amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+                        invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
+                        justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum
+                        dolor sit amet.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="hello" class="section table">
+            <div class="vcenter">
+                
+               <div id="center">CENTER</div>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+
+</html>
