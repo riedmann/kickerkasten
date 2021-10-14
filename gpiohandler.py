@@ -35,7 +35,7 @@ class gpiohandler:
 
        print("PIN Goal-Left: " + str(constant.GPIO_PIN_LEFT_GOAL))
        print("PIN Goal-Right: " + str(constant.GPIO_PIN_RIGHT_GOAL))
-       print("PIN Ball Out:" + str(constant.GROVE_PIN_BALL_OUT))
+       print("PIN Ball Out:" + str(constant.GPIO_PIN_BALL_OUT))
        print("PIN Ball in Button:" + str(constant.GPIO_PIN_BALL_BUTTON))
 
        GPIO.setup(constant.GPIO_PIN_LEFT_GOAL, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
@@ -73,11 +73,7 @@ class gpiohandler:
        self.give_ball()
 
     def give_ball(self):
-       #GPIO.output(RELAIS_1_GPIO, GPIO.LOW) # aus
-       GPIO.output(24, GPIO.HIGH) # an
-       #print("giving ball")
-       #grovepi.digitalWrite(constant.GROVE_PIN_BALL_OUT,0)
-       #grovepi.digitalWrite(constant.GROVE_PIN_BALL_OUT,1)
+       GPIO.output(constant.GPIO_PIN_BALL_OUT, GPIO.HIGH) 
        ofT = OnOffThread(release_relais, 2)
        ofT.start() # used to turn off the relay again
 
@@ -91,6 +87,4 @@ class gpiohandler:
        self.sevenSegmentGoals.printToSegment(self.team1,self.team2)
 
 def release_relais():
-   GPIO.output(24, GPIO.LOW) # aus
-   #grovepi.digitalWrite(constant.GROVE_PIN_BALL_OUT,0)
-   print("off")
+   GPIO.output(constant.GPIO_PIN_BALL_OUT, GPIO.LOW) # aus
