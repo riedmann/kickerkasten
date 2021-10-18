@@ -1,2 +1,4 @@
 __pyache__/
 old/
+*.pyc
+*.swp
