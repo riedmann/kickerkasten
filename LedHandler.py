@@ -17,7 +17,7 @@ class LedHandler():
         SPI_PORT   = 0
         SPI_DEVICE = 0
         self.pixels = LED.WS2801Pixels(self.PIXEL_COUNT, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE), gpio=GPIO)
-        self.runLed(5)
+        
 
     def runLed(self,animationID):
         print("starting animation")
