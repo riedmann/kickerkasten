@@ -10,7 +10,7 @@ from LedHandler import LedHandler
 import constant
 import pygame
 
-LedHandler = LedHandler()
+ledHandler = LedHandler()
 GPIOHandler = gpiohandler()
 pygame.mixer.init()
 backgroundSound = pygame.mixer.Sound(constant.SOUND_FOLDER + "/background.ogg")
