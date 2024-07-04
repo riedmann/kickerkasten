@@ -10,13 +10,14 @@ import Adafruit_GPIO.SPI as SPI
 class LedHandler():
     def __init__(self):
         print("Starting Led Animation...")
-        self.runLed(5)
+        
         # Configure the count of pixels:
         self.PIXEL_COUNT = 160 
         # Alternatively specify a hardware SPI connection on /dev/spidev0.0:
         SPI_PORT   = 0
         SPI_DEVICE = 0
         self.pixels = LED.WS2801Pixels(self.PIXEL_COUNT, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE), gpio=GPIO)
+        self.runLed(5)
 
     def runLed(self,animationID):
         print("starting animation")
