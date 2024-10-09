@@ -10,15 +10,15 @@ from LedHandler import LedHandler
 import constant
 import pygame
 
-ledHandler = LedHandler()
-gpio = gpiohandler()
+LedHandler = LedHandler()
+GPIOHandler = gpiohandler()
 pygame.mixer.init()
-bgsound = pygame.mixer.Sound("/home/pi/kickerkasten/sound/background.ogg")
-start = pygame.mixer.Sound("/home/pi/kickerkasten/sound/start.ogg")
+backgroundSound = pygame.mixer.Sound("/home/pi/kickerkasten/sound/background.ogg")
+startSound = pygame.mixer.Sound("/home/pi/kickerkasten/sound/start.ogg")
 
 global timer;
-timer = SevenSegmentTimer(gpio)
-timer.set_gpio(gpio)
+timer = SevenSegmentTimer(GPIOHandler)
+timer.set_gpio(GPIOHandler)
 app = Flask(__name__)
 soundStep = 0.2;
 
@@ -41,8 +41,8 @@ def homepage():
 def start_timer():
   global timer;
   timer.starttimer()  
-  gpio.isPaused=False
-  start.play()
+  GPIOHandler.isPaused=False
+  startSound.play()
   response = jsonify({"action":"staret"})
   response.headers.add("Access-Control-Allow-Origin", "*")
   return response
@@ -50,8 +50,8 @@ def start_timer():
 @app.route('/timer/pause', methods=['GET'])
 def stop_timer():
   timer.stoptimer()  
-  gpio.isPaused=True
-  start.play()
+  
+  startSound.play()
   response = jsonify({"action":"stop"})
   response.headers.add("Access-Control-Allow-Origin", "*")
   return response
@@ -59,25 +59,25 @@ def stop_timer():
 @app.route('/timer/reset', methods=['GET'])
 def reset_timer():
   time = request.args.get('time')
-  gpio.isPaused=True
+  GPIOHandler.isPaused=True
   if time is None:
     timer.resettimer(constant.DEFAULT_TIME_TO_RUN)
   else:
     timer.resettimer(int(time))
   
-  gpio.reset()
+  GPIOHandler.reset()
   response = jsonify({"action":"reset "})
   response.headers.add("Access-Control-Allow-Origin", "*")
   return response
 
 @app.route('/score', methods=['GET'])
 def get_score():
-  response =jsonify({"team1": gpio.team1, "team2":gpio.team2})
+  response =jsonify({"team1": GPIOHandler.team1, "team2":GPIOHandler.team2})
   return response
 
 @app.route('/ball/out', methods=['GET'])
 def give_ball():
-  gpio.give_ball()
+  GPIOHandler.give_ball()
   response = jsonify({"action":"ball out "})
   response.headers.add("Access-Control-Allow-Origin", "*")
   return response
@@ -93,14 +93,14 @@ def led_code(code):
 
 @app.route('/sound/on', methods=['GET'])
 def sound_on():
-  bgsound.play(-1)
+  backgroundSound.play(-1)
   response = jsonify({"action":"sound on "})
   response.headers.add("Access-Control-Allow-Origin", "*")
   return response 
 
 @app.route('/sound/off', methods=['GET'])
 def sound_off():
-  bgsound.stop()
+  backgroundSound.stop()
   response = jsonify({"action":"sound off "})
   response.headers.add("Access-Control-Allow-Origin", "*")
   return response
@@ -108,14 +108,14 @@ def sound_off():
 @app.route('/sound/plus', methods=['GET'])
 def sound_plus():
   set_sound(soundStep)
-  response = jsonify({"action":"sound plus volume:"+str(gpio.volume)})
+  response = jsonify({"action":"sound plus volume:"+str(GPIOHandler.volume)})
   response.headers.add("Access-Control-Allow-Origin", "*")
   return response
   
 @app.route('/sound/minus', methods=['GET'])
 def sound_minus():
   set_sound(-soundStep)
-  response = jsonify({"action":"sound minus volume:"+str(gpio.volume)})
+  response = jsonify({"action":"sound minus volume:"+str(GPIOHandler.volume)})
   response.headers.add("Access-Control-Allow-Origin", "*")
   return response
 
@@ -128,13 +128,13 @@ def sound_normal():
 
 
 def set_sound(volume):
-  gpio.volume = gpio.volume + volume  
-  if gpio.volume > 1:
-    gpio.volume = 1
-  if gpio.volume < 0.11:
-    gpio.volume = 0
-  pygame.mixer.music.set_volume(gpio.volume)
-  bgsound.set_volume(gpio.volume)
+  GPIOHandler.volume = GPIOHandler.volume + volume  
+  if GPIOHandler.volume > 1:
+    GPIOHandler.volume = 1
+  if GPIOHandler.volume < 0.11:
+    GPIOHandler.volume = 0
+  pygame.mixer.music.set_volume(GPIOHandler.volume)
+  backgroundSound.set_volume(GPIOHandler.volume)
 
 if __name__ == '__main__':
     app.run(debug=False, host= '0.0.0.0', port=5000)
