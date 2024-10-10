@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import os
 import time
-import grovepi
+
 import constant
 from OnOffThread import OnOffThread
 import pygame
@@ -31,8 +31,7 @@ class gpiohandler:
     def setup_pins(self):
       
        GPIO.setmode(GPIO.BCM)
-       #grovepi.pinMode(constant.GROVE_PIN_BALL_OUT,"OUTPUT")
-
+       
        print("PIN Goal-Left: " + str(constant.GPIO_PIN_LEFT_GOAL))
        print("PIN Goal-Right: " + str(constant.GPIO_PIN_RIGHT_GOAL))
        print("PIN Ball Out:" + str(constant.GPIO_PIN_BALL_OUT))

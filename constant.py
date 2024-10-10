@@ -2,7 +2,7 @@ GPIO_PIN_RIGHT_GOAL=17 #in pin on the raspberry
 GPIO_PIN_LEFT_GOAL=27  #in pin on the raspberry
 GPIO_PIN_BALL_BUTTON=23  #in pin on the raspberry
 GPIO_PIN_BALL_OUT=24
-#GROVE_PIN_BALL_OUT=3  # Digital pin on the grove
+
 
 SEVEN_SEGMENT_ADDRESS_TIMER_1=0x70 # RV 70 x 
 SEVEN_SEGMENT_ADDRESS_TIMER_2=0x71 # 71
