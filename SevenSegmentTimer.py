@@ -2,10 +2,14 @@ from threading import Thread
 from time import sleep
 import constant
 import sys
-from Adafruit_LED_Backpack import SevenSegment
+import board
+import busio
+from adafruit_ht16k33 import segments
 import pygame
 import gpiohandler
 
+# Create the I2C interface.
+i2c = busio.I2C(board.SCL, board.SDA)
 class SevenSegmentTimer(Thread):
     def __init__(self, gpiohandler):
         print("Starting Seven Segment Element...")
@@ -19,10 +23,10 @@ class SevenSegmentTimer(Thread):
         self.sound = pygame.mixer.Sound("/home/pi/kickerkasten/sound/start.ogg")
     
         # segment
-        self.segment1 = SevenSegment.SevenSegment(address=constant.SEVEN_SEGMENT_ADDRESS_TIMER_1)
-        self.segment1.begin()
-        self.segment2 = SevenSegment.SevenSegment(address=constant.SEVEN_SEGMENT_ADDRESS_TIMER_2)
-        self.segment2.begin()
+        self.segment1 = segments.Seg7x4(i2c,constant.SEVEN_SEGMENT_ADDRESS_TIMER_1)
+       
+        self.segment2 = segments.Seg7x4(i2c,constant.SEVEN_SEGMENT_ADDRESS_TIMER_2)
+       
         self.printtime()
         
 
@@ -66,6 +70,11 @@ class SevenSegmentTimer(Thread):
                 
         
     def printToSegment(self, hour, minute ):
+        self.segment1.fill(0)
+        self.segment1.print(42)
+        self.segment2.print(8)
+        
+        return
         self.segment1.clear()
         self.segment1.set_digit(0, int(hour / 10))     # Tens
         self.segment1.set_digit(1, hour % 10)          # Ones
