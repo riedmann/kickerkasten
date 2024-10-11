@@ -1,5 +1,5 @@
 import time
-import Adafruit_WS2801 as LED
+import adafruit_WS2801 as LED
 
 class LedAnimation:
     def __init__(self, pixels):
