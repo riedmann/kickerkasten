@@ -18,9 +18,9 @@ display = segments.Seg7x4(i2c)
 class SevenSegmentGoals:
     def __init__(self):
         self.segment1 = segments.Seg7x4(i2c,constant.SEVEN_SEGMENT_ADDRESS_GOALS_1)
-        self.segment1.begin()
+      
         self.segment2 = segments.Seg7x4(i2c,constant.SEVEN_SEGMENT_ADDRESS_GOALS_2)
-        self.segment2.begin()
+       
         self.printToSegment(0,0)
         
 
