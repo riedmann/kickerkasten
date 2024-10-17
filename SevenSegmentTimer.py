@@ -76,16 +76,27 @@ class SevenSegmentTimer(Thread):
                 
         
     def printToSegment(self, hour, minute ):
-        display.fill(0)
+        self.segment1.fill(0)
         # Set the first character to '1':
-        display[0] = str(int(hour/10))
+        self.segment1[0] = str(int(hour/10))
         # Set the second character to '2':
-        display[1] = str(hour % 10)
+        self.segment1[1] = str(hour % 10)
         # Set the third character to 'A':
-        display[2] = str(int(minute/10))
+        self.segment1[2] = str(int(minute/10))
         # Set the forth character to 'B':
-        display[3] = str(minute % 10)
-        display.print(':')
+        self.segment1[3] = str(minute % 10)
+        self.segment1.print(':')
+        
+        self.segment2.fill(0)
+        # Set the first character to '1':
+        self.segment2[0] = str(int(hour/10))
+        # Set the second character to '2':
+        self.segment2[1] = str(hour % 10)
+        # Set the third character to 'A':
+        self.segment2[2] = str(int(minute/10))
+        # Set the forth character to 'B':
+        self.segment2[3] = str(minute % 10)
+        self.segment2.print(':')
         
         
     
