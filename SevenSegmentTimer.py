@@ -85,6 +85,7 @@ class SevenSegmentTimer(Thread):
         display[2] = str(int(minute/10))
         # Set the forth character to 'B':
         display[3] = str(minute % 10)
+        display.print(':')
         
         # self.segment1.clear()
         # self.segment1.set_digit(0, int(hour / 10))     # Tens
