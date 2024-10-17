@@ -22,9 +22,13 @@ timer.set_gpio(GPIOHandler)
 app = Flask(__name__)
 soundStep = 0.2;
 
-@app.before_first_request
-def activate_job(): 
+
+def init_app():
+    # Initialization code
+    print("App is starting up")
     timer.start()
+
+init_app()
 
 @app.after_request
 def after_request(response):
