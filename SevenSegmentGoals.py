@@ -34,6 +34,17 @@ class SevenSegmentGoals:
         # Set the forth character to 'B':
         self.segment1[3] = str(goals1 % 10)
         self.segment1.print(':')
+
+        self.segment2.fill(0)
+        # Set the first character to '1':
+        self.segment2[0] = str(int(goals1 / 10))
+        # Set the second character to '2':
+        self.segment2[1] = str(goals1 % 10)
+        # Set the third character to 'A':
+        self.segment2[2] = str(int(goals1 / 10))
+        # Set the forth character to 'B':
+        self.segment2[3] = str(goals1 % 10)
+        self.segment2.print(':')
         # self.segment1.clear()
         # if goals1 < 10:
         #     #self.segment.set_digit(0, int(goals1 / 10))     # Tens
