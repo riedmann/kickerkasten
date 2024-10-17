@@ -13,28 +13,27 @@ i2c = busio.I2C(board.SCL, board.SDA)
 
 # Create the LED segment class.
 # This creates a 7 segment 4 character display:
-display = segments.Seg7x4(i2c)
+#display = segments.Seg7x4(i2c)
 
 class SevenSegmentGoals:
     def __init__(self):
         self.segment1 = segments.Seg7x4(i2c,constant.SEVEN_SEGMENT_ADDRESS_GOALS_1)
-      
         self.segment2 = segments.Seg7x4(i2c,constant.SEVEN_SEGMENT_ADDRESS_GOALS_2)
-       
         self.printToSegment(0,0)
         
 
        
     def printToSegment(self, goals1, goals2 ):
-        display.fill(0)
+        self.segment1.fill(0)
         # Set the first character to '1':
-        display[0] = '1'
+        self.segment1[0] = str(int(goals1 / 10))
         # Set the second character to '2':
-        display[1] = '2'
+        self.segment1[1] = str(goals1 % 10)
         # Set the third character to 'A':
-        display[2] = 'A'
+        self.segment1[2] = str(int(goals1 / 10))
         # Set the forth character to 'B':
-        display[3] = 'B'
+        self.segment1[3] = str(goals1 % 10)
+        self.segment1.print(':')
         # self.segment1.clear()
         # if goals1 < 10:
         #     #self.segment.set_digit(0, int(goals1 / 10))     # Tens

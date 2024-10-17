@@ -87,28 +87,7 @@ class SevenSegmentTimer(Thread):
         display[3] = str(minute % 10)
         display.print(':')
         
-        # self.segment1.clear()
-        # self.segment1.set_digit(0, int(hour / 10))     # Tens
-        # self.segment1.set_digit(1, hour % 10)          # Ones
-        # # Set minutes
-        # self.segment1.set_digit(2, int(minute / 10))   # Tens
-        # self.segment1.set_digit(3, minute % 10)        # Ones
-        # # Toggle colon
-        # self.segment1.set_colon(1)              # Toggle colon at 1Hz
-        # # Write the display buffer to the har     dware.  This must be called to
-        # # update the actual display LEDs.
-        # self.segment1.write_display()
-        # self.segment2.clear()
-        # self.segment2.set_digit(0, int(hour / 10))     # Tens
-        # self.segment2.set_digit(1, hour % 10)          # Ones
-        # # Set minutes
-        # self.segment2.set_digit(2, int(minute / 10))   # Tens
-        # self.segment2.set_digit(3, minute % 10)        # Ones
-        # # Toggle colon
-        # self.segment2.set_colon(1)              # Toggle colon at 1Hz
-        # # Write the display buffer to the har     dware.  This must be called to
-        # # update the actual display LEDs.
-        # self.segment2.write_display()
+        
     
    
    
