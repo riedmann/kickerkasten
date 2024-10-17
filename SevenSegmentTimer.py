@@ -78,13 +78,13 @@ class SevenSegmentTimer(Thread):
     def printToSegment(self, hour, minute ):
         display.fill(0)
         # Set the first character to '1':
-        display[0] = int(hour/10)
+        display[0] = str(int(hour/10))
         # Set the second character to '2':
-        display[1] = hour % 10
+        display[1] = str(hour % 10)
         # Set the third character to 'A':
-        display[2] = int(minute/10)
+        display[2] = str(int(minute/10))
         # Set the forth character to 'B':
-        display[3] = minute % 10
+        display[3] = str(minute % 10)
         
         # self.segment1.clear()
         # self.segment1.set_digit(0, int(hour / 10))     # Tens
