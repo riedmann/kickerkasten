@@ -30,9 +30,9 @@ class SevenSegmentTimer(Thread):
     
         # segment
         self.segment1 = segments.Seg7x4(i2c,constant.SEVEN_SEGMENT_ADDRESS_TIMER_1)
-        self.segment1.begin()
+        #self.segment1.begin()
         self.segment2 = segments.Seg7x4(i2c,constant.SEVEN_SEGMENT_ADDRESS_TIMER_2)
-        self.segment2.begin()
+        #self.segment2.begin()
         self.printtime()
         
 
