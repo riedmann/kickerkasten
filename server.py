@@ -42,6 +42,10 @@ def after_request(response):
 def homepage():
   return render_template("index.html")
 
+@app.route('/new', methods=['GET'])
+def homepage():
+  return render_template("web/index.html")
+
 @app.route('/timer/start', methods=['GET'])
 def start_timer():
   global timer;
