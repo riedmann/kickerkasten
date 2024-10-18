@@ -19,7 +19,7 @@ startSound = pygame.mixer.Sound(constant.SOUND_FOLDER + "/start.ogg")
 global timer;
 timer = SevenSegmentTimer(GPIOHandler)
 timer.set_gpio(GPIOHandler)
-app = Flask(__name__)
+app = Flask(__name__,static_url_path='', static_folder='templates/web/static')
 soundStep = 0.2;
 
 
