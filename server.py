@@ -43,7 +43,7 @@ def homepage():
   return render_template("index.html")
 
 @app.route('/new', methods=['GET'])
-def homepage():
+def newsite():
   return render_template("web/index.html")
 
 @app.route('/timer/start', methods=['GET'])
