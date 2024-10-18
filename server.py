@@ -6,11 +6,11 @@ from flask import make_response
 from gpiohandler import gpiohandler
 from SevenSegmentTimer import SevenSegmentTimer
 from flask import render_template
-#from LedHandler import LedHandler
+from LedHandler import LedHandler
 import constant
 import pygame
 
-#LedHandler = LedHandler()
+LedHandler = LedHandler()
 GPIOHandler = gpiohandler()
 pygame.mixer.init()
 backgroundSound = pygame.mixer.Sound(constant.SOUND_FOLDER + "/background.ogg")
@@ -89,7 +89,7 @@ def give_ball():
 @app.route('/led/<code>')
 def led_code(code):
     if code.isnumeric():
-        #ledHandler.runLed(int(code));
+        ledHandler.runLed(int(code));
         return make_response(jsonify({"info":"OK",}),200)
     else:
         return make_response(jsonify({"info":"Led Error Code " + code,}),301)
