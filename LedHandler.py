@@ -4,7 +4,7 @@ from LedAnimation import LedAnimation
 # Simple demo of of the WS2801/SPI-like addressable RGB LED lights.
 import RPi.GPIO as GPIO
 # Import the WS2801 module.
-import Adafruit_ws2801 as LED
+import Adafruit_WS2801 as LED
 import Adafruit_GPIO.SPI as SPI
 
 class LedHandler():
