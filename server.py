@@ -27,7 +27,7 @@ def init_app():
     # Initialization code
     print("App is starting up")
     timer.start()
-    ledHandler.runLed(5);
+   
 
 init_app()
 
