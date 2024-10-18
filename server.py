@@ -44,7 +44,7 @@ def homepage():
 
 @app.route('/new', methods=['GET'])
 def newsite():
-  return render_template("web/index.html")
+  return render_template("./web/index.html")
 
 @app.route('/timer/start', methods=['GET'])
 def start_timer():
