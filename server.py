@@ -19,9 +19,7 @@ startSound = pygame.mixer.Sound(constant.SOUND_FOLDER + "/start.ogg")
 global timer;
 timer = SevenSegmentTimer(GPIOHandler)
 timer.set_gpio(GPIOHandler)
-app = Flask(__name__,static_url_path='', 
-            static_folder='templates/web',
-            template_folder='templates')
+app = Flask(__name__)
 soundStep = 0.2;
 
 
@@ -46,7 +44,7 @@ def homepage():
 
 @app.route('/new', methods=['GET'])
 def newsite():
-  return render_template("web/index.html")
+  return render_template("index1.html")
 
 @app.route('/timer/start', methods=['GET'])
 def start_timer():
