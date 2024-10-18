@@ -10,4 +10,4 @@ SEVEN_SEGMENT_ADDRESS_GOALS_1=0x74 # LV
 SEVEN_SEGMENT_ADDRESS_GOALS_2=0x72 # 72
 DEFAULT_TIME_TO_RUN=300 # Default time of a match
 BOUNCETIME=1000 #bouncetime to wait for button clicks (e.g. goals)
-SOUND_FOLDER ="./kickerkasten/sound"
+SOUND_FOLDER ="/home/raspi/coding/kickerkasten/sound"

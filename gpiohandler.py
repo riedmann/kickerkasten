@@ -21,8 +21,8 @@ class gpiohandler:
        self.sevenSegmentGoals = SevenSegmentGoals()
        
        pygame.mixer.init()
-       self.goalsound = pygame.mixer.Sound("./sound/goal.ogg")
-       self.notValidGoal = pygame.mixer.Sound("./sound/nogoal.ogg")
+       self.goalsound = pygame.mixer.Sound(constant.SOUND_FOLDER + "/goal.ogg")
+       self.notValidGoal = pygame.mixer.Sound(constant.SOUND_FOLDER + "/nogoal.ogg")
      
        self.setup_pins()
        self.register_events() 

@@ -13,8 +13,8 @@ import pygame
 #LedHandler = LedHandler()
 GPIOHandler = gpiohandler()
 pygame.mixer.init()
-backgroundSound = pygame.mixer.Sound("./sound/background.ogg")
-startSound = pygame.mixer.Sound("./sound/start.ogg")
+backgroundSound = pygame.mixer.Sound(constant.SOUND_FOLDER + "/background.ogg")
+startSound = pygame.mixer.Sound(constant.SOUND_FOLDER + "/start.ogg")
 
 global timer;
 timer = SevenSegmentTimer(GPIOHandler)

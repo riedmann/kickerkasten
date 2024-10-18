@@ -26,7 +26,7 @@ class SevenSegmentTimer(Thread):
         self.stop = True
         self.gpio = gpiohandler
         pygame.mixer.init()
-        self.sound = pygame.mixer.Sound("./sound/start.ogg")
+        self.sound = pygame.mixer.Sound(constant.SOUND_FOLDER + "/start.ogg")
     
         # segment
         self.segment1 = segments.Seg7x4(i2c,constant.SEVEN_SEGMENT_ADDRESS_TIMER_1)
