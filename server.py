@@ -27,6 +27,7 @@ def init_app():
     # Initialization code
     print("App is starting up")
     timer.start()
+    ledHandler.runLed(5);
 
 init_app()
 
@@ -90,6 +91,7 @@ def give_ball():
 def led_code(code):
     if code.isnumeric():
         ledHandler.runLed(int(code));
+        
         return make_response(jsonify({"info":"OK",}),200)
     else:
         return make_response(jsonify({"info":"Led Error Code " + code,}),301)
