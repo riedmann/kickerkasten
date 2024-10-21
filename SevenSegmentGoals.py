@@ -28,14 +28,14 @@ class SevenSegmentGoals:
         # Set the first character to '1':
         if (goals1<10):
             #self.segment1[0] = str(int(goals1 / 10))
-            self.segment1[1] = str(goals1 % 10)
+            self.segment1[1] = str(goals1)
         # Set the second character to '2':
         if (goals1>9):
             self.segment1[0] = str(int(goals1 / 10))
             self.segment1[1] = str(goals1 % 10)
         # Set the third character to 'A':
         if (goals2<10):
-            self.segment1[2] = str(int(goals1 / 10))
+            self.segment1[2] = str(int(goals1))
         # Set the forth character to 'B':
         if (goals1>9):
             self.segment1[2] = str(int(goals1 / 10))
