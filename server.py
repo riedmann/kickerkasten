@@ -38,11 +38,11 @@ def after_request(response):
   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
   return response
 
-@app.route('/', methods=['GET'])
+@app.route('/old', methods=['GET'])
 def homepage():
   return render_template("index.html")
 
-@app.route('/new', methods=['GET'])
+@app.route('/', methods=['GET'])
 def newsite():
   return render_template("index1.html")
 
