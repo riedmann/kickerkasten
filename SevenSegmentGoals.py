@@ -47,8 +47,9 @@ class SevenSegmentGoals:
             self.segment1[3] = str(goals1 % 10)
             self.segment2[2] = str(int(goals1 / 10))
             self.segment2[3] = str(goals1 % 10)
+            
         self.segment1.print(':')
         self.segment2.print(':')
 
-        self.segment2.fill(0)
+        
        
