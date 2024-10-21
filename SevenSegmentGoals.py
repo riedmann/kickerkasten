@@ -39,13 +39,13 @@ class SevenSegmentGoals:
             self.segment2[1] = str(goals1 % 10)
         # Set the third character to 'A':
         if (goals2<10):
-            self.segment1[2] = str(int(goals1))
-            self.segment2[2] = str(int(goals1))
+            self.segment1[2] = str(int(goals2))
+            self.segment2[2] = str(int(goals2))
         # Set the forth character to 'B':
         if (goals1>9):
-            self.segment1[2] = str(int(goals1 / 10))
+            self.segment1[2] = str(int(goals2 / 10))
             self.segment1[3] = str(goals1 % 10)
-            self.segment2[2] = str(int(goals1 / 10))
+            self.segment2[2] = str(int(goals2 / 10))
             self.segment2[3] = str(goals1 % 10)
             
         self.segment1.print(':')
