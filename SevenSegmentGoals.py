@@ -26,14 +26,19 @@ class SevenSegmentGoals:
     def printToSegment(self, goals1, goals2 ):
         self.segment1.fill(0)
         # Set the first character to '1':
-        self.segment1[0] = str(int(goals1 / 10))
+        if (goals1<10):
+            #self.segment1[0] = str(int(goals1 / 10))
+            self.segment1[1] = str(goals1 % 10)
         # Set the second character to '2':
         if (goals1>9):
+            self.segment1[0] = str(int(goals1 / 10))
             self.segment1[1] = str(goals1 % 10)
         # Set the third character to 'A':
-        self.segment1[2] = str(int(goals1 / 10))
+        if (goals2<10):
+            self.segment1[2] = str(int(goals1 / 10))
         # Set the forth character to 'B':
         if (goals1>9):
+            self.segment1[2] = str(int(goals1 / 10))
             self.segment1[3] = str(goals1 % 10)
         self.segment1.print(':')
 
