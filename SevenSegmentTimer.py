@@ -2,7 +2,9 @@ from threading import Thread
 from time import sleep
 import constant
 import sys
-from Adafruit_LED_Backpack import SevenSegment
+import board
+import busio
+from adafruit_ht16k33 import segments
 import pygame
 import gpiohandler
 
@@ -19,10 +21,9 @@ class SevenSegmentTimer(Thread):
         self.sound = pygame.mixer.Sound("/home/pi/kickerkasten/sound/start.ogg")
     
         # segment
-        self.segment1 = SevenSegment.SevenSegment(address=constant.SEVEN_SEGMENT_ADDRESS_TIMER_1)
-        self.segment1.begin()
-        self.segment2 = SevenSegment.SevenSegment(address=constant.SEVEN_SEGMENT_ADDRESS_TIMER_2)
-        self.segment2.begin()
+        i2c = busio.I2C(board.SCL, board.SDA)
+        self.segment1 = segments.Seg7x4(i2c, address=constant.SEVEN_SEGMENT_ADDRESS_TIMER_1)
+        self.segment2 = segments.Seg7x4(i2c, address=constant.SEVEN_SEGMENT_ADDRESS_TIMER_2)
         self.printtime()
         
 
@@ -65,29 +66,19 @@ class SevenSegmentTimer(Thread):
                     self.stoptimer()
                 
         
-    def printToSegment(self, hour, minute ):
-        self.segment1.clear()
-        self.segment1.set_digit(0, int(hour / 10))     # Tens
-        self.segment1.set_digit(1, hour % 10)          # Ones
-        # Set minutes
-        self.segment1.set_digit(2, int(minute / 10))   # Tens
-        self.segment1.set_digit(3, minute % 10)        # Ones
-        # Toggle colon
-        self.segment1.set_colon(1)              # Toggle colon at 1Hz
-        # Write the display buffer to the har     dware.  This must be called to
-        # update the actual display LEDs.
-        self.segment1.write_display()
-        self.segment2.clear()
-        self.segment2.set_digit(0, int(hour / 10))     # Tens
-        self.segment2.set_digit(1, hour % 10)          # Ones
-        # Set minutes
-        self.segment2.set_digit(2, int(minute / 10))   # Tens
-        self.segment2.set_digit(3, minute % 10)        # Ones
-        # Toggle colon
-        self.segment2.set_colon(1)              # Toggle colon at 1Hz
-        # Write the display buffer to the har     dware.  This must be called to
-        # update the actual display LEDs.
-        self.segment2.write_display()
+    def printToSegment(self, hour, minute):
+        # Format the display string
+        display_str = "{:02d}{:02d}".format(hour, minute)
+        
+        # Clear and update segment1
+        self.segment1.fill(0)
+        self.segment1.print(display_str)
+        self.segment1.colon = True
+        
+        # Clear and update segment2
+        self.segment2.fill(0)
+        self.segment2.print(display_str)
+        self.segment2.colon = True
     
    
    
