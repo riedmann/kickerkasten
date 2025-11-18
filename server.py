@@ -6,7 +6,7 @@ from flask import make_response
 from gpiohandler import gpiohandler
 from SevenSegmentTimer import SevenSegmentTimer
 from flask import render_template
-#from LedHandler import LedHandler
+#xfrom LedHandler import LedHandler
 import constant
 import pygame
 
@@ -21,10 +21,6 @@ timer = SevenSegmentTimer(GPIOHandler)
 timer.set_gpio(GPIOHandler)
 app = Flask(__name__)
 soundStep = 0.2;
-
-@app.before_first_request
-def activate_job(): 
-    timer.start()
 
 @app.after_request
 def after_request(response):
@@ -137,5 +133,6 @@ def set_sound(volume):
   backgroundSound.set_volume(GPIOHandler.volume)
 
 if __name__ == '__main__':
+    timer.start()  # Start the timer before running the app
     app.run(debug=False, host= '0.0.0.0', port=5000)
    
