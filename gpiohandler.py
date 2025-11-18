@@ -1,4 +1,6 @@
 from gpiozero import Button, OutputDevice
+from gpiozero.pins.rpigpio import RPiGPIOFactory
+from gpiozero import Device
 import os
 import time
 
@@ -6,6 +8,9 @@ import constant
 from OnOffThread import OnOffThread
 import pygame
 from SevenSegmentGoals import SevenSegmentGoals
+
+# Set the pin factory explicitly
+Device.pin_factory = RPiGPIOFactory()
 
 class gpiohandler:
 
@@ -38,18 +43,30 @@ class gpiohandler:
        # Setup input buttons with pull-down resistors
        # bounce_time is in seconds (convert ms to seconds)
        bounce_time = constant.BOUNCETIME / 1000.0
+       print(f"Bounce time: {bounce_time} seconds")
        
        self.left_goal_button = Button(constant.GPIO_PIN_LEFT_GOAL, pull_up=False, bounce_time=bounce_time)
+       print("Left goal button initialized")
+       
        self.right_goal_button = Button(constant.GPIO_PIN_RIGHT_GOAL, pull_up=False, bounce_time=bounce_time)
+       print("Right goal button initialized")
+       
        self.ball_button = Button(constant.GPIO_PIN_BALL_BUTTON, pull_up=False, bounce_time=bounce_time)
+       print("Ball button initialized")
        
        # Setup output for ball release
        self.ball_out = OutputDevice(constant.GPIO_PIN_BALL_OUT, active_high=True, initial_value=False)
+       print("Ball output device initialized")
        
     def register_events(self):
        self.left_goal_button.when_pressed = self.my_callback_goal_1
+       print("Left goal callback registered")
+       
        self.right_goal_button.when_pressed = self.my_callback_goal_2
-       self.ball_button.when_pressed = self.my_callback_give_ball 
+       print("Right goal callback registered")
+       
+       self.ball_button.when_pressed = self.my_callback_give_ball
+       print("Ball button callback registered") 
 
     def my_callback_goal_1(self):
        print("goal 1")
