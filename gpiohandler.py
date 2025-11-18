@@ -9,7 +9,8 @@ from OnOffThread import OnOffThread
 import pygame
 from SevenSegmentGoals import SevenSegmentGoals
 
-
+# Set the pin factory explicitly to use RPi.GPIO backend
+Device.pin_factory = RPiGPIOFactory()
 
 class gpiohandler:
 
@@ -44,13 +45,13 @@ class gpiohandler:
        bounce_time = constant.BOUNCETIME / 1000.0
        print(f"Bounce time: {bounce_time} seconds")
        
-       self.left_goal_button = Button(constant.GPIO_PIN_LEFT_GOAL, pull_up=False, bounce_time=bounce_time)
+       self.left_goal_button = Button(constant.GPIO_PIN_LEFT_GOAL, pull_up=False)
        print("Left goal button initialized")
        
-       self.right_goal_button = Button(constant.GPIO_PIN_RIGHT_GOAL, pull_up=False, bounce_time=bounce_time)
+       self.right_goal_button = Button(constant.GPIO_PIN_RIGHT_GOAL, pull_up=False)
        print("Right goal button initialized")
        
-       self.ball_button = Button(constant.GPIO_PIN_BALL_BUTTON, pull_up=False, bounce_time=bounce_time)
+       self.ball_button = Button(constant.GPIO_PIN_BALL_BUTTON, pull_up=False)
        print("Ball button initialized")
        
        # Setup output for ball release
