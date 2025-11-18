@@ -18,7 +18,7 @@ class SevenSegmentTimer(Thread):
         self.stop = True
         self.gpio = gpiohandler
         pygame.mixer.init()
-        self.sound = pygame.mixer.Sound("/home/pi/kickerkasten/sound/start.ogg")
+        self.sound = pygame.mixer.Sound("/home/pi/Documents/kickerkasten/sound/start.ogg")
     
         # segment
         i2c = busio.I2C(board.SCL, board.SDA)
