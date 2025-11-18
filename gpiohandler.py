@@ -29,7 +29,13 @@ class gpiohandler:
        
 
     def setup_pins(self):
-      
+       try:
+           # Clean up any existing GPIO settings
+           GPIO.setwarnings(False)
+           GPIO.cleanup()
+       except:
+           pass
+       
        GPIO.setmode(GPIO.BCM)
        
        print("PIN Goal-Left: " + str(constant.GPIO_PIN_LEFT_GOAL))
@@ -40,7 +46,7 @@ class gpiohandler:
        GPIO.setup(constant.GPIO_PIN_LEFT_GOAL, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
        GPIO.setup(constant.GPIO_PIN_RIGHT_GOAL, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
        GPIO.setup(constant.GPIO_PIN_BALL_BUTTON, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-       GPIO.setup(24, GPIO.OUT)
+       GPIO.setup(constant.GPIO_PIN_BALL_OUT, GPIO.OUT)
        
     def register_events(self):
        GPIO.add_event_detect(constant.GPIO_PIN_LEFT_GOAL, GPIO.RISING, callback=self.my_callback_goal_1, bouncetime=constant.BOUNCETIME) 
