@@ -46,13 +46,13 @@ class gpiohandler:
        bounce_time = constant.BOUNCETIME / 1000.0
        print(f"Bounce time: {bounce_time} seconds")
        
-       self.left_goal_button = Button(constant.GPIO_PIN_LEFT_GOAL, pull_up=False)
+       self.left_goal_button = Button(constant.GPIO_PIN_LEFT_GOAL, pull_up=False,bounce_time=bounce_time)
        print("Left goal button initialized")
        
-       self.right_goal_button = Button(constant.GPIO_PIN_RIGHT_GOAL, pull_up=False)
+       self.right_goal_button = Button(constant.GPIO_PIN_RIGHT_GOAL, pull_up=False,bounce_time=bounce_time)
        print("Right goal button initialized")
        
-       self.ball_button = Button(constant.GPIO_PIN_BALL_BUTTON, pull_up=False)
+       self.ball_button = Button(constant.GPIO_PIN_BALL_BUTTON, pull_up=False,bounce_time=bounce_time)
        print("Ball button initialized")
        
        # Setup output for ball release
