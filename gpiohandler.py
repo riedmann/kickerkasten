@@ -26,6 +26,7 @@ class gpiohandler:
      
        self.setup_pins()
        self.register_events() 
+       print("gpio init done")
        
 
     def setup_pins(self):
@@ -51,6 +52,7 @@ class gpiohandler:
        self.ball_button.when_pressed = self.my_callback_give_ball 
 
     def my_callback_goal_1(self):
+       print("goal 1")
        if self.isPaused:
          print("paused....sorry")
          self.notValidGoal.play()
@@ -61,7 +63,8 @@ class gpiohandler:
        
 
     def my_callback_goal_2(self):
-       print("goal2")    
+       
+       print("goal 2")    
        if self.isPaused:
          print("paused....sorry")
          self.notValidGoal.play()
@@ -71,6 +74,7 @@ class gpiohandler:
          self.showScore()
 
     def my_callback_give_ball(self):
+       print("give ball")
        self.balls += 1
        self.give_ball()
 
