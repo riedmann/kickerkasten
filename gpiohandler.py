@@ -1,6 +1,6 @@
-from gpiozero import Button, OutputDevice
-from gpiozero.pins.rpigpio import RPiGPIOFactory
-from gpiozero import Device
+from gpiozero import Device,Button, OutputDevice
+from gpiozero.pins.lgpio import LGPIOFactory
+
 import os
 import time
 
@@ -10,7 +10,8 @@ import pygame
 from SevenSegmentGoals import SevenSegmentGoals
 
 # Set the pin factory explicitly to use RPi.GPIO backend
-Device.pin_factory = RPiGPIOFactory()
+
+Device.pin_factory = LGPIOFactory()
 
 class gpiohandler:
 
