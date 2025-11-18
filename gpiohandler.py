@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+from gpiozero import Button, OutputDevice
 import os
 import time
 
@@ -29,31 +29,28 @@ class gpiohandler:
        
 
     def setup_pins(self):
-       try:
-           # Clean up any existing GPIO settings
-           GPIO.setwarnings(False)
-           GPIO.cleanup()
-       except:
-           pass
-       
-       GPIO.setmode(GPIO.BCM)
-       
        print("PIN Goal-Left: " + str(constant.GPIO_PIN_LEFT_GOAL))
        print("PIN Goal-Right: " + str(constant.GPIO_PIN_RIGHT_GOAL))
        print("PIN Ball Out:" + str(constant.GPIO_PIN_BALL_OUT))
        print("PIN Ball in Button:" + str(constant.GPIO_PIN_BALL_BUTTON))
 
-       GPIO.setup(constant.GPIO_PIN_LEFT_GOAL, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-       GPIO.setup(constant.GPIO_PIN_RIGHT_GOAL, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-       GPIO.setup(constant.GPIO_PIN_BALL_BUTTON, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-       GPIO.setup(constant.GPIO_PIN_BALL_OUT, GPIO.OUT)
+       # Setup input buttons with pull-down resistors
+       # bounce_time is in seconds (convert ms to seconds)
+       bounce_time = constant.BOUNCETIME / 1000.0
+       
+       self.left_goal_button = Button(constant.GPIO_PIN_LEFT_GOAL, pull_up=False, bounce_time=bounce_time)
+       self.right_goal_button = Button(constant.GPIO_PIN_RIGHT_GOAL, pull_up=False, bounce_time=bounce_time)
+       self.ball_button = Button(constant.GPIO_PIN_BALL_BUTTON, pull_up=False, bounce_time=bounce_time)
+       
+       # Setup output for ball release
+       self.ball_out = OutputDevice(constant.GPIO_PIN_BALL_OUT, active_high=True, initial_value=False)
        
     def register_events(self):
-       GPIO.add_event_detect(constant.GPIO_PIN_LEFT_GOAL, GPIO.RISING, callback=self.my_callback_goal_1, bouncetime=constant.BOUNCETIME) 
-       GPIO.add_event_detect(constant.GPIO_PIN_RIGHT_GOAL, GPIO.RISING, callback=self.my_callback_goal_2, bouncetime=constant.BOUNCETIME) 
-       GPIO.add_event_detect(constant.GPIO_PIN_BALL_BUTTON, GPIO.RISING, callback=self.my_callback_give_ball, bouncetime=constant.BOUNCETIME) 
+       self.left_goal_button.when_pressed = self.my_callback_goal_1
+       self.right_goal_button.when_pressed = self.my_callback_goal_2
+       self.ball_button.when_pressed = self.my_callback_give_ball 
 
-    def my_callback_goal_1(self, channel):
+    def my_callback_goal_1(self):
        if self.isPaused:
          print("paused....sorry")
          self.notValidGoal.play()
@@ -63,7 +60,7 @@ class gpiohandler:
          self.showScore()
        
 
-    def my_callback_goal_2(self, channel):
+    def my_callback_goal_2(self):
        print("goal2")    
        if self.isPaused:
          print("paused....sorry")
@@ -73,14 +70,17 @@ class gpiohandler:
          self.goalsound.play()
          self.showScore()
 
-    def my_callback_give_ball(self,channel):
+    def my_callback_give_ball(self):
        self.balls += 1
        self.give_ball()
 
     def give_ball(self):
-       GPIO.output(constant.GPIO_PIN_BALL_OUT, GPIO.HIGH) 
-       ofT = OnOffThread(release_relais, 2)
+       self.ball_out.on()
+       ofT = OnOffThread(self.release_relais, 2)
        ofT.start() # used to turn off the relay again
+    
+    def release_relais(self):
+       self.ball_out.off()
 
     def reset(self):
        self.team1 = 0
@@ -90,6 +90,3 @@ class gpiohandler:
     def showScore(self):
        print("show score on segment")
        self.sevenSegmentGoals.printToSegment(self.team1,self.team2)
-
-def release_relais():
-   GPIO.output(constant.GPIO_PIN_BALL_OUT, GPIO.LOW) # aus
