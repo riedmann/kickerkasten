@@ -9,8 +9,7 @@ from OnOffThread import OnOffThread
 import pygame
 from SevenSegmentGoals import SevenSegmentGoals
 
-# Set the pin factory explicitly
-Device.pin_factory = RPiGPIOFactory()
+
 
 class gpiohandler:
 
