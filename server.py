@@ -6,7 +6,7 @@ from flask import make_response
 from gpiohandler import gpiohandler
 from SevenSegmentTimer import SevenSegmentTimer
 from flask import render_template
-from LedHandler import LedHandler
+#from LedHandler import LedHandler
 import constant
 import pygame
 
