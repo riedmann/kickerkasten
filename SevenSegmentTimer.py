@@ -66,9 +66,9 @@ class SevenSegmentTimer(Thread):
                     self.stoptimer()
                 
         
-    def printToSegment(self, hour, minute):
+    def printToSegment(self, mins, secs):
         # Format the display string
-        display_str = "{:02d}{:02d}".format(hour, minute)
+        display_str = "{:02d}{:02d}".format(mins, secs)
         
         # Clear and update segment1
         self.segment1.fill(0)
