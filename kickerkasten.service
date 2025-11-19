@@ -3,7 +3,7 @@ Description=Kickerkasten Server and Kiosk
 After=graphical.target network.target
 
 [Service]
-Type=forking
+Type=simple
 User=pi
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/pi/.Xauthority
@@ -11,6 +11,7 @@ WorkingDirectory=/home/pi/Documents/kickerkasten
 ExecStart=/bin/bash /home/pi/Documents/kickerkasten/start_server.sh
 Restart=on-failure
 RestartSec=10
+KillMode=mixed
 
 [Install]
 WantedBy=graphical.target
