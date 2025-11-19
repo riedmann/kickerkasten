@@ -74,11 +74,13 @@ class SevenSegmentTimer(Thread):
         self.segment1.fill(0)
         self.segment1.print(display_str)
         self.segment1.colon = True
+        self.segment1.show()
         
         # Clear and update segment2
         self.segment2.fill(0)
         self.segment2.print(display_str)
         self.segment2.colon = True
+        self.segment2.show()
     
    
    

@@ -6,3 +6,4 @@ Todo
 In der neuesten GroveVersion sind Interrupts möglich: https://dexterind.github.io/GrovePi/api/interrupt/
 
 2021.11.10 Erweiterung LED-Leiste 2021.11.10 Todo, Try-Catch bei Segement, Led Code 2x Stripes angehängt
+|
