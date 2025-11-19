@@ -1,11 +1,20 @@
   GNU nano 7.2                                                                                             start_server_and_browser.sh                                                                                                      
 #!/bin/bash
 # Activate virtual environment if needed
-source /home/pi/Documents/kickerkasten/venv/bin/activate
+source /home/pi/Documents/kickerkasten/venv/bin/activate || {
+    echo "Failed to activate virtual environment" >&2
+    exit 1
+}
 
 # Start the Flask server in background
 python3 /home/pi/Documents/kickerkasten/server.py &
 SERVER_PID=$!
+
+# Check if server started
+if ! kill -0 $SERVER_PID 2>/dev/null; then
+    echo "Failed to start server" >&2
+    exit 1
+fi
 
 # Give the server a few seconds to start
 sleep 5
@@ -14,7 +23,7 @@ sleep 5
 export DISPLAY=${DISPLAY:-:0}
 
 # Check if X server is running before launching browser
-if xset q &>/dev/null; then
+if xset q &>/dev/null 2>&1; then
     # Open Chromium in kiosk mode (fullscreen) pointing to localhost:5000
     # Flags to suppress GPU errors and improve performance on Raspberry Pi
     chromium-browser --kiosk \

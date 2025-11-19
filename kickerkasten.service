@@ -12,6 +12,8 @@ ExecStart=/bin/bash /home/pi/Documents/kickerkasten/start_server.sh
 Restart=on-failure
 RestartSec=10
 KillMode=mixed
+StandardOutput=journal
+StandardError=journal
 
 [Install]
 WantedBy=graphical.target
