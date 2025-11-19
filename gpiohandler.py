@@ -111,4 +111,5 @@ class gpiohandler:
 
     def showScore(self):
        print("show score on segment")
+       print(f"Team 1: {self.team1}, Team 2: {self.team2}")
        self.sevenSegmentGoals.printToSegment(self.team1,self.team2)
