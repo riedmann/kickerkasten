@@ -50,12 +50,24 @@ class GPIOHandler:
     
     def _handle_left_goal(self):
         """Internal handler for left goal button"""
-        print("Left goal scored!")
+        print(f"[GPIO] Left goal button pressed! (GPIO {config.GPIO_PIN_LEFT_GOAL})")
         if self.on_left_goal:
-            self.on_left_goal()
+            try:
+                self.on_left_goal()
+                print("[GPIO] Left goal callback executed successfully")
+            except Exception as e:
+                print(f"[GPIO] Error in left goal callback: {e}")
+        else:
+            print("[GPIO] Warning: No callback registered for left goal")
     
     def _handle_right_goal(self):
         """Internal handler for right goal button"""
-        print("Right goal scored!")
+        print(f"[GPIO] Right goal button pressed! (GPIO {config.GPIO_PIN_RIGHT_GOAL})")
         if self.on_right_goal:
-            self.on_right_goal()
+            try:
+                self.on_right_goal()
+                print("[GPIO] Right goal callback executed successfully")
+            except Exception as e:
+                print(f"[GPIO] Error in right goal callback: {e}")
+        else:
+            print("[GPIO] Warning: No callback registered for right goal")

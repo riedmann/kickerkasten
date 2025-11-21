@@ -23,15 +23,19 @@ score_manager = ScoreManager()
 # Define goal callbacks
 def on_left_goal():
     """Called when left team scores"""
+    print(f"[CALLBACK] on_left_goal() triggered")
     score = score_manager.goal_left()
+    print(f"[CALLBACK] Score manager returned: {score}")
     score_display.update(score['team_left'], score['team_right'])
-    print(f"Score updated: {score['team_left']}:{score['team_right']}")
+    print(f"[CALLBACK] Display updated. Final score: {score['team_left']}:{score['team_right']}")
 
 def on_right_goal():
     """Called when right team scores"""
+    print(f"[CALLBACK] on_right_goal() triggered")
     score = score_manager.goal_right()
+    print(f"[CALLBACK] Score manager returned: {score}")
     score_display.update(score['team_left'], score['team_right'])
-    print(f"Score updated: {score['team_left']}:{score['team_right']}")
+    print(f"[CALLBACK] Display updated. Final score: {score['team_left']}:{score['team_right']}")
 
 # Initialize GPIO handler
 print("Initializing GPIO...")
