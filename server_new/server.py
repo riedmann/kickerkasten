@@ -1,7 +1,7 @@
 """
 Flask server for Kickerkasten (foosball table) controller
 """
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from timer import Timer
 from timer_display import TimerDisplay
 from score_manager import ScoreManager
@@ -11,7 +11,7 @@ from sound_manager import SoundManager
 import config
 
 # Initialize Flask app
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 # Initialize displays
 print("Initializing displays...")
@@ -152,7 +152,13 @@ def reset_score():
 
 @app.route('/', methods=['GET'])
 def homepage():
-    """Homepage with API information"""
+    """Serve the main frontend application"""
+    return render_template('index.html')
+
+
+@app.route('/api', methods=['GET'])
+def api_info():
+    """API information and endpoints"""
     return jsonify({
         "name": "Kickerkasten API",
         "version": "2.0",
