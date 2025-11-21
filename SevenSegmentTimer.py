@@ -7,6 +7,7 @@ import busio
 from adafruit_ht16k33 import segments
 import pygame
 import gpiohandler
+from i2c_lock import i2c_lock
 
 class SevenSegmentTimer(Thread):
     def __init__(self, gpiohandler):
@@ -70,17 +71,19 @@ class SevenSegmentTimer(Thread):
         # Format the display string
         display_str = "{:02d}{:02d}".format(mins, secs)
         
-        # Clear and update segment1
-        self.segment1.fill(0)
-        self.segment1.print(display_str)
-        self.segment1.colon = True
-        self.segment1.show()
-        
-        # Clear and update segment2
-        self.segment2.fill(0)
-        self.segment2.print(display_str)
-        self.segment2.colon = True
-        self.segment2.show()
+        # Use lock to prevent I2C bus contention
+        with i2c_lock:
+            # Clear and update segment1
+            self.segment1.fill(0)
+            self.segment1.print(display_str)
+            self.segment1.colon = True
+            self.segment1.show()
+            
+            # Clear and update segment2
+            self.segment2.fill(0)
+            self.segment2.print(display_str)
+            self.segment2.colon = True
+            self.segment2.show()
     
    
    

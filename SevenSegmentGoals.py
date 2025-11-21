@@ -7,6 +7,7 @@ import busio
 from adafruit_ht16k33 import segments
 import traceback
 from datetime import datetime
+from i2c_lock import i2c_lock
 
 
 class SevenSegmentGoals:
@@ -45,13 +46,15 @@ class SevenSegmentGoals:
             traceback.print_stack()
             sys.stdout.flush()
         
-        # Update segment1 (don't use fill(0) with auto_write as it causes flashing)
-        self.segment1.print(display_str)
-        self.segment1.colon = True
-        
-        # Update segment2
-        self.segment2.print(display_str)
-        self.segment2.colon = True
+        # Use lock to prevent I2C bus contention
+        with i2c_lock:
+            # Update segment1 (don't use fill(0) with auto_write as it causes flashing)
+            self.segment1.print(display_str)
+            self.segment1.colon = True
+            
+            # Update segment2
+            self.segment2.print(display_str)
+            self.segment2.colon = True
         
         print(f"[{datetime.now()}] Goal display updated successfully")
         sys.stdout.flush()
