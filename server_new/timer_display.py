@@ -34,6 +34,8 @@ class TimerDisplay:
         mins, secs = divmod(seconds, 60)
         display_str = "{:02d}{:02d}".format(mins, secs)
         
+        print(f"[TIMER_DISPLAY] Writing to 0x{config.SEVEN_SEGMENT_ADDRESS_TIMER_1:02x} and 0x{config.SEVEN_SEGMENT_ADDRESS_TIMER_2:02x}: {display_str}")
+        
         with i2c_lock:
             # Update display 1
             self.display1.fill(0)

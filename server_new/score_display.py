@@ -41,9 +41,9 @@ class ScoreDisplay(Thread):
         self.start()
     
     def run(self):
-        """Background thread that refreshes display every 2 seconds"""
+        """Background thread that refreshes display every 0.5 seconds"""
         while True:
-            sleep(2)
+            sleep(0.5)  # Refresh more frequently
             self._write_to_display()
     
     def update(self, team_left, team_right):
@@ -57,6 +57,8 @@ class ScoreDisplay(Thread):
         """Internal method to write current score to displays"""
         # Format: "L:R" without leading zeros for single digits
         display_str = "{}{}".format(self.team_left, self.team_right)
+        
+        print(f"[SCORE_DISPLAY] Writing to 0x{config.SEVEN_SEGMENT_ADDRESS_GOALS_1:02x} and 0x{config.SEVEN_SEGMENT_ADDRESS_GOALS_2:02x}: {display_str} ({self.team_left}:{self.team_right})")
         
         with i2c_lock:
             try:
