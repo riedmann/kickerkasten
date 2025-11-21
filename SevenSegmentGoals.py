@@ -5,6 +5,7 @@ import sys
 import board
 import busio
 from adafruit_ht16k33 import segments
+import traceback
 
 
 class SevenSegmentGoals:
@@ -29,6 +30,12 @@ class SevenSegmentGoals:
         # Format without leading zeros: "0:0", "1:0", "10:4"
         display_str = "{}{}".format(goals1, goals2)
         print(f"Updating goal display to: {goals1}:{goals2} (display_str: {display_str})")
+        
+        # Debug: Print stack trace if resetting to 0:0
+        if goals1 == 0 and goals2 == 0:
+            print("WARNING: Resetting display to 0:0!")
+            print("Stack trace:")
+            traceback.print_stack()
         
         # Clear and update segment1
         self.segment1.fill(0)
