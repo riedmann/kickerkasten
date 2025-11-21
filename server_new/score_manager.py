@@ -14,15 +14,21 @@ class ScoreManager:
     
     def goal_left(self):
         """Increment left team score"""
+        print(f"[SCORE_MANAGER] goal_left() called, acquiring lock")
         with self.lock:
             self.team_left += 1
-            return self.get_score()
+            result = {"team_left": self.team_left, "team_right": self.team_right}
+            print(f"[SCORE_MANAGER] Left team scored! New score: {result}")
+            return result
     
     def goal_right(self):
         """Increment right team score"""
+        print(f"[SCORE_MANAGER] goal_right() called, acquiring lock")
         with self.lock:
             self.team_right += 1
-            return self.get_score()
+            result = {"team_left": self.team_left, "team_right": self.team_right}
+            print(f"[SCORE_MANAGER] Right team scored! New score: {result}")
+            return result
     
     def reset(self):
         """Reset both scores to 0"""

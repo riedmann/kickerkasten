@@ -35,18 +35,33 @@ class ScoreDisplay:
         # Format: "L:R" without leading zeros for single digits
         display_str = "{}{}".format(team_left, team_right)
         
-        with self.lock:
-            # Update display 1
-            self.display1.fill(0)
-            self.display1.print(display_str)
-            self.display1.colon = True
-            self.display1.show()
-            
-            # Update display 2
-            self.display2.fill(0)
-            self.display2.print(display_str)
-            self.display2.colon = True
-            self.display2.show()
+        print(f"[SCORE_DISPLAY] Acquiring lock to update to {team_left}:{team_right}")
+        
+        if self.lock.acquire(timeout=2):
+            try:
+                print(f"[SCORE_DISPLAY] Lock acquired, updating displays")
+                # Update display 1
+                self.display1.fill(0)
+                self.display1.print(display_str)
+                self.display1.colon = True
+                self.display1.show()
+                
+                # Update display 2
+                self.display2.fill(0)
+                self.display2.print(display_str)
+                self.display2.colon = True
+                self.display2.show()
+                
+                print(f"[SCORE_DISPLAY] Displays updated successfully")
+            except Exception as e:
+                print(f"[SCORE_DISPLAY] ERROR updating displays: {e}")
+                import traceback
+                traceback.print_exc()
+            finally:
+                self.lock.release()
+                print(f"[SCORE_DISPLAY] Lock released")
+        else:
+            print(f"[SCORE_DISPLAY] ERROR: Could not acquire lock after 2 seconds!")
     
     def clear(self):
         """Clear both displays"""
