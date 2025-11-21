@@ -122,7 +122,10 @@ def get_timer_status():
 def get_score():
     """Get current score"""
     score = score_manager.get_score()
-    return jsonify(score)
+    return jsonify({
+        "team1": score['team_left'],
+        "team2": score['team_right']
+    })
 
 
 @app.route('/score/reset', methods=['GET'])
