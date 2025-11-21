@@ -50,31 +50,31 @@ class ScoreDisplay(Thread):
         """Update both displays with the score (left:right)"""
         self.team_left = team_left
         self.team_right = team_right
-        print(f"[SCORE_DISPLAY] Score updated to {team_left}:{team_right}")
         self._write_to_display()
     
     def _write_to_display(self):
         """Internal method to write current score to displays"""
-        # Format: "L:R" without leading zeros for single digits
-        display_str = "{}{}".format(self.team_left, self.team_right)
-        
-        print(f"[SCORE_DISPLAY] Writing to 0x{config.SEVEN_SEGMENT_ADDRESS_GOALS_1:02x} and 0x{config.SEVEN_SEGMENT_ADDRESS_GOALS_2:02x}: {display_str} ({self.team_left}:{self.team_right})")
-        
         with i2c_lock:
             try:
-                # Update display 1
+                # Update display 1 - show left score on position 0-1, right score on position 2-3
                 self.display1.fill(0)
-                self.display1.print(display_str)
+                self.display1[0] = str(self.team_left // 10) if self.team_left >= 10 else ' '
+                self.display1[1] = str(self.team_left % 10)
+                self.display1[3] = str(self.team_right // 10) if self.team_right >= 10 else ' '
+                self.display1[4] = str(self.team_right % 10)
                 self.display1.colon = True
                 self.display1.show()
                 
-                # Update display 2
+                # Update display 2 - mirror display 1
                 self.display2.fill(0)
-                self.display2.print(display_str)
+                self.display2[0] = str(self.team_left // 10) if self.team_left >= 10 else ' '
+                self.display2[1] = str(self.team_left % 10)
+                self.display2[3] = str(self.team_right // 10) if self.team_right >= 10 else ' '
+                self.display2[4] = str(self.team_right % 10)
                 self.display2.colon = True
                 self.display2.show()
             except Exception as e:
-                print(f"[SCORE_DISPLAY] ERROR: {e}")
+                pass
     
     def clear(self):
         """Clear both displays"""

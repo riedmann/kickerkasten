@@ -14,7 +14,6 @@ import config
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 # Initialize displays
-print("Initializing displays...")
 timer_display = TimerDisplay()
 score_display = ScoreDisplay()
 
@@ -22,52 +21,39 @@ score_display = ScoreDisplay()
 score_manager = ScoreManager()
 
 # Initialize sound manager
-print("Initializing sound manager...")
 sound_manager = SoundManager()
 
 # Define goal callbacks
 def on_left_goal():
     """Called when left team scores"""
-    print(f"[CALLBACK] on_left_goal() triggered")
-    
     # Check if timer is running
     if timer.is_running and not timer.is_paused:
         # Valid goal
         sound_manager.play_goal()
         score = score_manager.goal_left()
-        print(f"[CALLBACK] Score manager returned: {score}")
         score_display.update(score['team_left'], score['team_right'])
-        print(f"[CALLBACK] Display updated. Final score: {score['team_left']}:{score['team_right']}")
     else:
         # Invalid goal - timer not running
-        print("[CALLBACK] Goal rejected - timer not running")
         sound_manager.play_nogoal()
 
 def on_right_goal():
     """Called when right team scores"""
-    print(f"[CALLBACK] on_right_goal() triggered")
-    
     # Check if timer is running
     if timer.is_running and not timer.is_paused:
         # Valid goal
         sound_manager.play_goal()
         score = score_manager.goal_right()
-        print(f"[CALLBACK] Score manager returned: {score}")
         score_display.update(score['team_left'], score['team_right'])
-        print(f"[CALLBACK] Display updated. Final score: {score['team_left']}:{score['team_right']}")
     else:
         # Invalid goal - timer not running
-        print("[CALLBACK] Goal rejected - timer not running")
         sound_manager.play_nogoal()
 
 # Initialize GPIO handler
-print("Initializing GPIO...")
 gpio_handler = GPIOHandler(on_left_goal=on_left_goal, on_right_goal=on_right_goal)
 
 # Initialize timer with display
 timer = Timer(display=timer_display)
 timer.start()  # Start the timer thread
-print("Server initialized and running")
 
 
 @app.after_request
@@ -179,6 +165,4 @@ def api_info():
 
 
 if __name__ == '__main__':
-    print("Starting Kickerkasten Server...")
-    print(f"Timer default duration: {config.DEFAULT_TIME_TO_RUN} seconds")
     app.run(debug=False, host='0.0.0.0', port=5000)
