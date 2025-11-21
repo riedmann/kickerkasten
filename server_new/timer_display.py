@@ -6,14 +6,13 @@ import board
 import busio
 from adafruit_ht16k33 import segments
 import config
+from i2c_lock import i2c_lock
 
 
 class TimerDisplay:
     """Handles two seven-segment displays for the timer"""
     
     def __init__(self):
-        self.lock = Lock()
-        
         # Create I2C bus
         i2c = busio.I2C(board.SCL, board.SDA)
         
@@ -35,7 +34,7 @@ class TimerDisplay:
         mins, secs = divmod(seconds, 60)
         display_str = "{:02d}{:02d}".format(mins, secs)
         
-        with self.lock:
+        with i2c_lock:
             # Update display 1
             self.display1.fill(0)
             self.display1.print(display_str)
