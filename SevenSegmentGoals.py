@@ -25,9 +25,9 @@ class SevenSegmentGoals:
         self.segment1.brightness = 1.0
         self.segment2.brightness = 1.0
         
-        # Enable auto_write for immediate display updates
-        self.segment1.auto_write = True
-        self.segment2.auto_write = True
+        # Disable auto_write and use manual show() to prevent conflicts
+        self.segment1.auto_write = False
+        self.segment2.auto_write = False
         
         print(f"[{datetime.now()}] Calling printToSegment(0,0) from __init__")
         self.printToSegment(0,0)
@@ -48,13 +48,17 @@ class SevenSegmentGoals:
         
         # Use lock to prevent I2C bus contention
         with i2c_lock:
-            # Update segment1 (don't use fill(0) with auto_write as it causes flashing)
+            # Update segment1
+            self.segment1.fill(0)
             self.segment1.print(display_str)
             self.segment1.colon = True
+            self.segment1.show()
             
             # Update segment2
+            self.segment2.fill(0)
             self.segment2.print(display_str)
             self.segment2.colon = True
+            self.segment2.show()
         
         print(f"[{datetime.now()}] Goal display updated successfully")
         sys.stdout.flush()
