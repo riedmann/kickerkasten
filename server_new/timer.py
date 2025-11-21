@@ -9,7 +9,7 @@ import config
 class Timer(Thread):
     """Thread-safe timer with start, stop, pause, and reset functionality"""
     
-    def __init__(self):
+    def __init__(self, display=None):
         Thread.__init__(self)
         self.daemon = True
         
@@ -17,6 +17,7 @@ class Timer(Thread):
         self.is_running = False
         self.is_paused = True
         self.lock = Lock()
+        self.display = display
         
     def run(self):
         """Main timer loop"""
@@ -26,6 +27,10 @@ class Timer(Thread):
             with self.lock:
                 if self.is_running and not self.is_paused and self.time_remaining > 0:
                     self.time_remaining -= 1
+                    
+                    # Update display if available
+                    if self.display:
+                        self.display.update(self.time_remaining)
                     
                     if self.time_remaining == 0:
                         self.is_running = False
@@ -73,6 +78,10 @@ class Timer(Thread):
             
             self.is_running = False
             self.is_paused = True
+            
+            # Update display if available
+            if self.display:
+                self.display.update(self.time_remaining)
             
             return {
                 "status": "reset",

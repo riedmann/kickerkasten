@@ -3,14 +3,20 @@ Flask server for Kickerkasten (foosball table) controller
 """
 from flask import Flask, jsonify, request
 from timer import Timer
+from timer_display import TimerDisplay
 import config
 
 # Initialize Flask app
 app = Flask(__name__)
 
-# Initialize timer
-timer = Timer()
+# Initialize timer display
+print("Initializing timer displays...")
+timer_display = TimerDisplay()
+
+# Initialize timer with display
+timer = Timer(display=timer_display)
 timer.start()  # Start the timer thread
+print("Timer initialized and running")
 
 
 @app.after_request
