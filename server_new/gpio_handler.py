@@ -1,8 +1,12 @@
 """
 GPIO handler for goal detection using gpiozero
 """
-from gpiozero import Button
+from gpiozero import Device, Button
+from gpiozero.pins.lgpio import LGPIOFactory
 import config
+
+# Set the pin factory explicitly to use lgpio backend
+Device.pin_factory = LGPIOFactory()
 
 
 class GPIOHandler:
@@ -42,6 +46,7 @@ class GPIOHandler:
         print(f"  Left goal: GPIO {config.GPIO_PIN_LEFT_GOAL}")
         print(f"  Right goal: GPIO {config.GPIO_PIN_RIGHT_GOAL}")
         print(f"  Bounce time: {bounce_time}s")
+        print(f"  Pin factory: {Device.pin_factory}")
     
     def _handle_left_goal(self):
         """Internal handler for left goal button"""
