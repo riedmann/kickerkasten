@@ -26,8 +26,8 @@ class SevenSegmentGoals:
 
        
     def printToSegment(self, goals1, goals2):
-        # Format without leading spaces: "0:0" instead of " 0: 0"
-        display_str = "{:d}{:d}".format(goals1, goals2)
+        # Format without leading zeros: "0:0", "1:0", "10:4"
+        display_str = "{}{}".format(goals1, goals2)
         print(f"Updating goal display to: {goals1}:{goals2} (display_str: {display_str})")
         
         # Clear and update segment1
