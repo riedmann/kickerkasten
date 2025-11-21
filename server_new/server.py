@@ -7,6 +7,7 @@ from timer_display import TimerDisplay
 from score_manager import ScoreManager
 from score_display import ScoreDisplay
 from gpio_handler import GPIOHandler
+from sound_manager import SoundManager
 import config
 
 # Initialize Flask app
@@ -20,22 +21,44 @@ score_display = ScoreDisplay()
 # Initialize score manager
 score_manager = ScoreManager()
 
+# Initialize sound manager
+print("Initializing sound manager...")
+sound_manager = SoundManager()
+
 # Define goal callbacks
 def on_left_goal():
     """Called when left team scores"""
     print(f"[CALLBACK] on_left_goal() triggered")
-    score = score_manager.goal_left()
-    print(f"[CALLBACK] Score manager returned: {score}")
-    score_display.update(score['team_left'], score['team_right'])
-    print(f"[CALLBACK] Display updated. Final score: {score['team_left']}:{score['team_right']}")
+    
+    # Check if timer is running
+    if timer.is_running and not timer.is_paused:
+        # Valid goal
+        sound_manager.play_goal()
+        score = score_manager.goal_left()
+        print(f"[CALLBACK] Score manager returned: {score}")
+        score_display.update(score['team_left'], score['team_right'])
+        print(f"[CALLBACK] Display updated. Final score: {score['team_left']}:{score['team_right']}")
+    else:
+        # Invalid goal - timer not running
+        print("[CALLBACK] Goal rejected - timer not running")
+        sound_manager.play_nogoal()
 
 def on_right_goal():
     """Called when right team scores"""
     print(f"[CALLBACK] on_right_goal() triggered")
-    score = score_manager.goal_right()
-    print(f"[CALLBACK] Score manager returned: {score}")
-    score_display.update(score['team_left'], score['team_right'])
-    print(f"[CALLBACK] Display updated. Final score: {score['team_left']}:{score['team_right']}")
+    
+    # Check if timer is running
+    if timer.is_running and not timer.is_paused:
+        # Valid goal
+        sound_manager.play_goal()
+        score = score_manager.goal_right()
+        print(f"[CALLBACK] Score manager returned: {score}")
+        score_display.update(score['team_left'], score['team_right'])
+        print(f"[CALLBACK] Display updated. Final score: {score['team_left']}:{score['team_right']}")
+    else:
+        # Invalid goal - timer not running
+        print("[CALLBACK] Goal rejected - timer not running")
+        sound_manager.play_nogoal()
 
 # Initialize GPIO handler
 print("Initializing GPIO...")
