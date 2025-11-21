@@ -36,19 +36,17 @@ class SevenSegmentGoals:
             print("WARNING: Resetting display to 0:0!")
             print("Stack trace:")
             traceback.print_stack()
+            sys.stdout.flush()
         
-        # Clear and update segment1
-        self.segment1.fill(0)
+        # Update segment1 (don't use fill(0) with auto_write as it causes flashing)
         self.segment1.print(display_str)
         self.segment1.colon = True
-        self.segment1.show()
         
-        # Clear and update segment2
-        self.segment2.fill(0)
+        # Update segment2
         self.segment2.print(display_str)
         self.segment2.colon = True
-        self.segment2.show()
         
         print("Goal display updated successfully")
+        sys.stdout.flush()
     
    
