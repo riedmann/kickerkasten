@@ -19,7 +19,7 @@ class ScoreDisplay:
         
         # Initialize both score displays
         self.display1 = segments.Seg7x4(i2c, address=config.SEVEN_SEGMENT_ADDRESS_GOALS_1)
-        self.display2 = segments.Seg7x4(i2c, address=config.SEVEN_SEGMENT_ADDRESS_GOALS_2)
+        self.display2 = segments.Seg7x4(i2c, address=config.SEVEN_SEGMENT_ADDRESS_GOALS_1)
         
         # Configure displays
         self.display1.brightness = 1.0
