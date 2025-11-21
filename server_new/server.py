@@ -84,6 +84,7 @@ def after_request(response):
 def start_timer():
     """Start the countdown timer"""
     result = timer.start_timer()
+    sound_manager.play_start()
     return jsonify({
         "action": "start",
         "data": result
@@ -94,6 +95,7 @@ def start_timer():
 def stop_timer():
     """Stop the timer completely"""
     result = timer.stop_timer()
+    sound_manager.play_start()
     return jsonify({
         "action": "stop",
         "data": result
@@ -104,6 +106,7 @@ def stop_timer():
 def pause_timer():
     """Pause the timer"""
     result = timer.pause_timer()
+    sound_manager.play_start()
     return jsonify({
         "action": "pause",
         "data": result
