@@ -56,21 +56,37 @@ class ScoreDisplay(Thread):
         """Internal method to write current score to displays"""
         with i2c_lock:
             try:
-                # Update display 1 - show left score on position 0-1, right score on position 2-3
+                # Update display 1 - show left score on positions 0-1, right score on positions 3-4
                 self.display1.fill(0)
-                self.display1[0] = str(self.team_left // 10) if self.team_left >= 10 else ' '
-                self.display1[1] = str(self.team_left % 10)
-                self.display1[3] = str(self.team_right // 10) if self.team_right >= 10 else ' '
-                self.display1[4] = str(self.team_right % 10)
+                if self.team_left >= 10:
+                    self.display1[0] = str(self.team_left // 10)
+                    self.display1[1] = str(self.team_left % 10)
+                else:
+                    self.display1[0] = str(self.team_left)
+                
+                if self.team_right >= 10:
+                    self.display1[3] = str(self.team_right // 10)
+                    self.display1[4] = str(self.team_right % 10)
+                else:
+                    self.display1[3] = str(self.team_right)
+                
                 self.display1.colon = True
                 self.display1.show()
                 
                 # Update display 2 - mirror display 1
                 self.display2.fill(0)
-                self.display2[0] = str(self.team_left // 10) if self.team_left >= 10 else ' '
-                self.display2[1] = str(self.team_left % 10)
-                self.display2[3] = str(self.team_right // 10) if self.team_right >= 10 else ' '
-                self.display2[4] = str(self.team_right % 10)
+                if self.team_left >= 10:
+                    self.display2[0] = str(self.team_left // 10)
+                    self.display2[1] = str(self.team_left % 10)
+                else:
+                    self.display2[0] = str(self.team_left)
+                
+                if self.team_right >= 10:
+                    self.display2[3] = str(self.team_right // 10)
+                    self.display2[4] = str(self.team_right % 10)
+                else:
+                    self.display2[3] = str(self.team_right)
+                
                 self.display2.colon = True
                 self.display2.show()
             except Exception as e:
