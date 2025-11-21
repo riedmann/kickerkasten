@@ -8,6 +8,7 @@ from score_manager import ScoreManager
 from score_display import ScoreDisplay
 from gpio_handler import GPIOHandler
 from sound_manager import SoundManager
+from time import sleep
 import config
 
 # Initialize Flask app
@@ -107,6 +108,7 @@ def reset_timer():
     
     # Reset score to 0:0
     score = score_manager.reset()
+    sleep(0.1)  # Brief delay to avoid I2C conflicts
     score_display.update(score['team_left'], score['team_right'])
     
     return jsonify({
