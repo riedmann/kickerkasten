@@ -5,8 +5,8 @@ from threading import Lock
 import board
 import busio
 from adafruit_ht16k33 import segments
-import config
-from i2c_lock import i2c_lock
+from . import config
+from .i2c_lock import i2c_lock
 
 
 class TimerDisplay:

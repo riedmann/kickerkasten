@@ -3,7 +3,7 @@ GPIO handler for goal detection using gpiozero
 """
 from gpiozero import Device, Button, OutputDevice
 from gpiozero.pins.lgpio import LGPIOFactory
-import config
+from . import config
 
 # Set the pin factory explicitly to use lgpio backend
 Device.pin_factory = LGPIOFactory()

@@ -3,7 +3,7 @@ Timer class to handle countdown functionality
 """
 from threading import Thread, Lock
 from time import sleep
-import config
+from . import config
 
 
 class Timer(Thread):

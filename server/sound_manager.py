@@ -2,7 +2,7 @@
 Sound manager for playing game sounds
 """
 import os
-import config
+from . import config
 import simpleaudio as sa
 
 
