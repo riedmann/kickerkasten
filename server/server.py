@@ -109,10 +109,13 @@ def reset_timer():
     """Reset the timer to default or specified time"""
     time_param = request.args.get('time', type=int)
     
+    print("berfore timer reset")
     # Reset timer first (without display update)
     result = timer.reset_timer_no_display(time_param)
+    print("After timer reset")
     
     # Reset score
+    print("before score")
     score = score_manager.reset()
     print(f"Score {score}")
     
