@@ -8,6 +8,7 @@ from score_manager import ScoreManager
 from score_display import ScoreDisplay
 from gpio_handler import GPIOHandler
 from sound_manager import SoundManager
+from LedHandler import LedHandler
 from time import sleep
 import config
 
@@ -23,6 +24,9 @@ score_manager = ScoreManager()
 
 # Initialize sound manager
 sound_manager = SoundManager()
+
+# Initialize LedHandler
+led_handler = LedHandler()
 
 # Define goal callbacks
 def on_left_goal():
@@ -187,6 +191,18 @@ def api_info():
             },
             "frontend": {
                 "/": "Frontend web interface"
+            },
+            "led": {
+                "/led/1": "Trigger LED animation 1",
+                "/led/2": "Trigger LED animation 2",
+                "/led/3": "Trigger LED animation 3",
+                "/led/4": "Trigger LED animation 4",
+                "/led/5": "Trigger LED animation 5",
+                "/led/6": "Trigger LED animation 6",
+                "/led/7": "Trigger LED animation 7",
+                "/led/8": "Trigger LED animation 8",
+                "/led/9": "Trigger LED animation 9",
+                "/led/10": "Trigger LED animation 10"
             }
         }
     })
@@ -202,6 +218,17 @@ def ball_out():
         return jsonify({"action": "ball out triggered"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+# LED animation endpoints
+for i in range(1, 11):
+    def make_led_route(idx):
+        @app.route(f"/led/{idx}", methods=["GET"])
+        def led_animation(idx=idx):
+            led_handler.runLed(idx)
+            return jsonify({"action": f"LED animation {idx} started"})
+        return led_animation
+    make_led_route(i)
 
 
 if __name__ == '__main__':
