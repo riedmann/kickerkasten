@@ -35,6 +35,7 @@ def on_left_goal():
     if timer.is_running and not timer.is_paused:
         # Valid goal
         sound_manager.play_goal()
+        led_handler.runLed(10, loop=False)  # Play goal animation once
         score = score_manager.goal_left()
         score_display.update(score['team_left'], score['team_right'])
     else:
@@ -47,6 +48,7 @@ def on_right_goal():
     if timer.is_running and not timer.is_paused:
         # Valid goal
         sound_manager.play_goal()
+        led_handler.runLed(10, loop=False)  # Play goal animation once
         score = score_manager.goal_right()
         score_display.update(score['team_left'], score['team_right'])
     else:
@@ -229,8 +231,10 @@ def ball_out():
 def led_animation(animation_id):
     """Trigger LED animation by ID (1-10)"""
     if 1 <= animation_id <= 10:
-        led_handler.runLed(animation_id)
-        return jsonify({"action": f"LED animation {animation_id} started"})
+        # Animation 10 is for goals (one-time), others loop
+        loop = (animation_id != 10)
+        led_handler.runLed(animation_id, loop=loop)
+        return jsonify({"action": f"LED animation {animation_id} started", "loop": loop})
     else:
         return jsonify({"error": "Animation ID must be between 1 and 10"}), 400
 

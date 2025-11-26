@@ -1,16 +1,26 @@
 import time
 import Adafruit_WS2801 as LED
+import threading
 
 class LedAnimation:
     def __init__(self, pixels):
-        self.pixels = pixels;
+        self.pixels = pixels
         self.pixels.clear()
         self.pixels.show()  # Make sure to call show() after changing any pixels!
+        self.should_stop = threading.Event()
 
-    def printLED(self,animationId):
-        getattr(self,'case_'+str(animationId), lambda: 'nothing')()
+    def printLED(self, animationId, loop=True):
+        """Run animation, looping continuously unless loop=False"""
+        while not self.should_stop.is_set():
+            getattr(self, 'case_' + str(animationId), lambda: 'nothing')()
+            if not loop:
+                break
         self.pixels.clear()
         self.pixels.show()
+    
+    def stop(self):
+        """Stop the current animation"""
+        self.should_stop.set()
 
     # Define the wheel function to interpolate between different hues.
     def wheel(self,pos):
@@ -140,6 +150,8 @@ class LedAnimation:
     def case_9(self, blink_times=5, wait=0.5, color=(0,255,255)):
         pixels = self.pixels
         for i in range(blink_times):
+            if self.should_stop.is_set():
+                break
             # blink two times, then wait
             pixels.clear()
             for j in range(2):
@@ -150,4 +162,21 @@ class LedAnimation:
                 pixels.clear()
                 pixels.show()
                 time.sleep(0.08)
-            time.sleep(wait)                    
+            time.sleep(wait)
+    
+    # Goal celebration animation - fast rainbow cycle
+    def case_10(self):
+        pixels = self.pixels
+        wait = 0.001
+        # Do 3 fast cycles of rainbow
+        for cycle in range(3):
+            if self.should_stop.is_set():
+                break
+            for j in range(256):
+                if self.should_stop.is_set():
+                    break
+                for i in range(pixels.count()):
+                    pixels.set_pixel(i, self.wheel(((i * 256 // pixels.count()) + j) % 256))
+                pixels.show()
+                if wait > 0:
+                    time.sleep(wait)                    
