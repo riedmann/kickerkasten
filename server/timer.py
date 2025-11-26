@@ -24,17 +24,22 @@ class Timer(Thread):
         while True:
             sleep(1)
             
+            should_update = False
+            current_time = 0
+            
             with self.lock:
                 if self.is_running and not self.is_paused and self.time_remaining > 0:
                     self.time_remaining -= 1
-                    
-                    # Update display if available
-                    if self.display:
-                        self.display.update(self.time_remaining)
+                    should_update = True
+                    current_time = self.time_remaining
                     
                     if self.time_remaining == 0:
                         self.is_running = False
                         self.is_paused = True
+            
+            # Update display outside the lock
+            if should_update and self.display:
+                self.display.update(current_time)
     
     def start_timer(self):
         """Start or resume the timer"""
@@ -70,9 +75,7 @@ class Timer(Thread):
     
     def reset_timer(self, time_seconds=None):
         """Reset the timer to specified time or default"""
-        print("in reset timer")
         with self.lock:
-            print("in self.locks")
             if time_seconds is not None:
                 self.time_remaining = time_seconds
             else:
