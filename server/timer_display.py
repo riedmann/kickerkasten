@@ -1,12 +1,10 @@
 """
 Seven Segment Display Handler for Timer
 """
-from threading import Lock
 import board
 import busio
 from adafruit_ht16k33 import segments
 from . import config
-from .i2c_lock import i2c_lock
 
 
 class TimerDisplay:
@@ -36,23 +34,21 @@ class TimerDisplay:
         
         print(f"[TIMER_DISPLAY] Writing to 0x{config.SEVEN_SEGMENT_ADDRESS_TIMER_1:02x} and 0x{config.SEVEN_SEGMENT_ADDRESS_TIMER_2:02x}: {display_str}")
         
-        with i2c_lock:
-            # Update display 1
-            self.display1.fill(0)
-            self.display1.print(display_str)
-            self.display1.colon = True
-            self.display1.show()
-            
-            # Update display 2
-            self.display2.fill(0)
-            self.display2.print(display_str)
-            self.display2.colon = True
-            self.display2.show()
+        # Update display 1
+        self.display1.fill(0)
+        self.display1.print(display_str)
+        self.display1.colon = True
+        self.display1.show()
+        
+        # Update display 2
+        self.display2.fill(0)
+        self.display2.print(display_str)
+        self.display2.colon = True
+        self.display2.show()
     
     def clear(self):
         """Clear both displays"""
-        with self.lock:
-            self.display1.fill(0)
-            self.display1.show()
-            self.display2.fill(0)
-            self.display2.show()
+        self.display1.fill(0)
+        self.display1.show()
+        self.display2.fill(0)
+        self.display2.show()
