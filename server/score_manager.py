@@ -34,6 +34,7 @@ class ScoreManager:
         """Reset both scores to 0"""
         print("Score manager reset")
         with self.lock:
+            print("in lock")
             self.team_left = 0
             self.team_right = 0
             return self.get_score()
