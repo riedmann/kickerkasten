@@ -3,6 +3,7 @@ Sound manager for playing game sounds
 """
 import os
 import config
+import simpleaudio as sa
 
 
 class SoundManager:
@@ -13,9 +14,9 @@ class SoundManager:
         # Load sound files
         sound_path = os.path.join(os.path.dirname(__file__), '..', 'sound')
         
-        self.goal_sound = None
-        self.start_sound = None
-        self.nogoal_sound = None
+        self.goal_sound = os.path.join(sound_path, 'goal.wav')
+        self.start_sound = os.path.join(sound_path, 'start.wav')
+        self.nogoal_sound = os.path.join(sound_path, 'nogoal.wav')
         
         print("Sound manager initialized")
         print(f"  Sound folder: {sound_path}")
@@ -23,14 +24,26 @@ class SoundManager:
     def play_goal(self):
         """Play goal sound"""
         print("[SOUND] Playing goal sound")
-        self.goal_sound.play()
+        try:
+            wave_obj = sa.WaveObject.from_wave_file(self.goal_sound)
+            wave_obj.play()
+        except Exception as e:
+            print(f"[SOUND] Error playing goal sound: {e}")
     
     def play_start(self):
         """Play start/stop/pause sound"""
         print("[SOUND] Playing start sound")
-        self.start_sound.play()
+        try:
+            wave_obj = sa.WaveObject.from_wave_file(self.start_sound)
+            wave_obj.play()
+        except Exception as e:
+            print(f"[SOUND] Error playing start sound: {e}")
     
     def play_nogoal(self):
         """Play invalid goal sound"""
         print("[SOUND] Playing nogoal sound")
-        self.nogoal_sound.play()
+        try:
+            wave_obj = sa.WaveObject.from_wave_file(self.nogoal_sound)
+            wave_obj.play()
+        except Exception as e:
+            print(f"[SOUND] Error playing nogoal sound: {e}")
