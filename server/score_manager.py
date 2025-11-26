@@ -35,7 +35,10 @@ class ScoreManager:
         with self.lock:
             self.team_left = 0
             self.team_right = 0
-            return self.get_score()
+            return {
+                "team_left": self.team_left,
+                "team_right": self.team_right
+            }
     
     def get_score(self):
         """Get current score"""
