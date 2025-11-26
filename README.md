@@ -1,4 +1,4 @@
-# Kickerkasten - Foosball Table Controller
+# Kickerkasten - Football Table Controller
 
 Raspberry Pi-based controller for a foosball table with timer, score tracking, LED animations, and sound effects.
 
