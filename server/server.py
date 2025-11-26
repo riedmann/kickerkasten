@@ -108,16 +108,14 @@ def pause_timer():
 def reset_timer():
     """Reset the timer to default or specified time"""
     time_param = request.args.get('time', type=int)
-    print("in route timer reset")
+    
     # Reset score to 0:0
     score = score_manager.reset()
     score_display.update(score['team_left'], score['team_right'])
     
     # Reset timer
-    print("timer reset")
     result = timer.reset_timer(time_param)
-    print("after timer reset")
-    
+
     return jsonify({
         "action": "reset",
         "data": result
