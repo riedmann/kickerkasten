@@ -13,13 +13,27 @@ class LedHandler:
         self.current_animation = None
         self.current_thread = None
         self.loop_animation_id = None
+        self.timer = None
         
-        # Start with a random animation (1-9, not 10 which is for goals)
-        self.start_random_animation()
+        # Start with pause mode animation (case_1)
+        self.runLed(1, loop=True)
+    
+    def set_timer(self, timer):
+        """Set reference to timer to check game state"""
+        self.timer = timer
+    
+    def switch_to_pause_mode(self):
+        """Switch to pause animation (case_1)"""
+        self.runLed(1, loop=True)
+    
+    def switch_to_game_mode(self):
+        """Switch to active game animation (random 2-9)"""
+        animation_id = random.randint(2, 9)
+        self.runLed(animation_id, loop=True)
     
     def start_random_animation(self):
-        """Start a random animation from 1-9"""
-        animation_id = random.randint(1, 9)
+        """Start a random animation from 2-9"""
+        animation_id = random.randint(2, 9)
         self.runLed(animation_id, loop=True)
 
     def runLed(self, animationID, loop=True, from_internal=False):

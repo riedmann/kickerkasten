@@ -33,19 +33,19 @@ class LedAnimation:
             pos -= 170
             return LED.RGB_to_color(0, pos * 3, 255 - pos * 3)
 
-    #rainbow_cycle_successive
+    # Simple single point moving around - dim white/blue
     def case_1(self):
         pixels = self.pixels
-        wait=0.1
+        color = LED.RGB_to_color(30, 30, 50)  # Dim white-blue
+        wait = 0.02
+        
         for i in range(pixels.count()):
-            # tricky math! we use each pixel as a fraction of the full 96-color wheel
-            # (thats the i / strip.numPixels() part)
-            # Then add in j which makes the colors go around per pixel
-            # the % 96 is to make the wheel cycle around
-            pixels.set_pixel(i, self.wheel(((i * 256 // pixels.count())) % 256) )
+            if self.should_stop.is_set():
+                break
+            pixels.clear()
+            pixels.set_pixel(i, color)
             pixels.show()
-            if wait > 0:
-                time.sleep(wait)
+            time.sleep(wait)
                 
     # appear from back
     def case_2(self):
@@ -164,19 +164,40 @@ class LedAnimation:
                 time.sleep(0.08)
             time.sleep(wait)
     
-    # Goal celebration animation - fast rainbow cycle
+    # Goal celebration animation - intense rapid blinking for 7 seconds
     def case_10(self):
         pixels = self.pixels
-        wait = 0.001
-        # Do 3 fast cycles of rainbow
-        for cycle in range(3):
+        duration = 7.0  # 7 seconds total
+        blink_delay = 0.05  # Very fast blinking
+        start_time = time.time()
+        
+        # Alternate between bright colors
+        colors = [
+            (255, 0, 0),      # Red
+            (0, 255, 0),      # Green
+            (0, 0, 255),      # Blue
+            (255, 255, 0),    # Yellow
+            (255, 0, 255),    # Magenta
+            (0, 255, 255),    # Cyan
+            (255, 255, 255),  # White
+        ]
+        color_index = 0
+        
+        while time.time() - start_time < duration:
             if self.should_stop.is_set():
                 break
-            for j in range(256):
-                if self.should_stop.is_set():
-                    break
-                for i in range(pixels.count()):
-                    pixels.set_pixel(i, self.wheel(((i * 256 // pixels.count()) + j) % 256))
-                pixels.show()
-                if wait > 0:
-                    time.sleep(wait)                    
+            
+            # Fill all pixels with current color
+            color = colors[color_index % len(colors)]
+            for i in range(pixels.count()):
+                pixels.set_pixel(i, LED.RGB_to_color(color[0], color[1], color[2]))
+            pixels.show()
+            time.sleep(blink_delay)
+            
+            # Turn off
+            pixels.clear()
+            pixels.show()
+            time.sleep(blink_delay)
+            
+            # Next color
+            color_index += 1                    

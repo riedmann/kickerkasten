@@ -25,7 +25,7 @@ score_manager = ScoreManager()
 # Initialize sound manager
 sound_manager = SoundManager()
 
-# Initialize LedHandler
+# Initialize LedHandler (will set timer reference later)
 led_handler = LedHandler()
 
 # Define goal callbacks
@@ -67,6 +67,9 @@ def on_timer_end():
 timer = Timer(display=timer_display, on_timer_end=on_timer_end)
 timer.start()  # Start the timer thread
 
+# Set timer reference in LED handler so it can check game state
+led_handler.set_timer(timer)
+
 
 @app.after_request
 def after_request(response):
@@ -83,6 +86,8 @@ def start_timer():
     """Start the countdown timer"""
     result = timer.start_timer()
     sound_manager.play_start()
+    # Switch to active game animation (2-9)
+    led_handler.switch_to_game_mode()
     return jsonify({
         "action": "start",
         "data": result
@@ -105,6 +110,8 @@ def pause_timer():
     """Pause the timer"""
     result = timer.pause_timer()
     sound_manager.play_start()
+    # Switch to pause animation (case_1)
+    led_handler.switch_to_pause_mode()
     return jsonify({
         "action": "pause",
         "data": result
