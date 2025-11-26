@@ -56,8 +56,13 @@ def on_right_goal():
 # Initialize GPIO handler
 gpio_handler = GPIOHandler(on_left_goal=on_left_goal, on_right_goal=on_right_goal)
 
-# Initialize timer with display
-timer = Timer(display=timer_display)
+# Define timer end callback
+def on_timer_end():
+    """Called when timer reaches 0"""
+    sound_manager.play_start()
+
+# Initialize timer with display and callback
+timer = Timer(display=timer_display, on_timer_end=on_timer_end)
 timer.start()  # Start the timer thread
 
 
@@ -109,20 +114,15 @@ def reset_timer():
     """Reset the timer to default or specified time"""
     time_param = request.args.get('time', type=int)
     
-    print("berfore timer reset")
     # Reset timer first (without display update)
     result = timer.reset_timer_no_display(time_param)
-    print("After timer reset")
     
     # Reset score
-    print("before score")
     score = score_manager.reset()
-    print(f"Score {score}")
     
     # Update both displays in sequence (they will acquire i2c_lock internally)
     score_display.update(score['team_left'], score['team_right'])
     timer.update_display()
-    print("after update")
 
     return jsonify({
         "action": "reset",
