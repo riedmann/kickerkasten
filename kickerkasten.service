@@ -1,0 +1,19 @@
+[Unit]
+Description=Kickerkasten Server and Kiosk
+After=graphical.target network.target
+
+[Service]
+Type=simple
+User=pi
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+WorkingDirectory=/home/pi/Documents/kickerkasten
+ExecStart=/bin/bash /home/pi/Documents/kickerkasten/start_server.sh
+Restart=on-failure
+RestartSec=10
+KillMode=mixed
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=graphical.target

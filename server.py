@@ -6,25 +6,21 @@ from flask import make_response
 from gpiohandler import gpiohandler
 from SevenSegmentTimer import SevenSegmentTimer
 from flask import render_template
-from LedHandler import LedHandler
+#xfrom LedHandler import LedHandler
 import constant
 import pygame
 
-LedHandler = LedHandler()
+#LedHandler = LedHandler()
 GPIOHandler = gpiohandler()
 pygame.mixer.init()
-backgroundSound = pygame.mixer.Sound("/home/pi/kickerkasten/sound/background.ogg")
-startSound = pygame.mixer.Sound("/home/pi/kickerkasten/sound/start.ogg")
+backgroundSound = pygame.mixer.Sound("/home/pi/Documents/kickerkasten/sound/background.ogg")
+startSound = pygame.mixer.Sound("/home/pi/Documents/kickerkasten/sound/start.ogg")
 
 global timer;
 timer = SevenSegmentTimer(GPIOHandler)
 timer.set_gpio(GPIOHandler)
 app = Flask(__name__)
 soundStep = 0.2;
-
-@app.before_first_request
-def activate_job(): 
-    timer.start()
 
 @app.after_request
 def after_request(response):
@@ -85,7 +81,7 @@ def give_ball():
 @app.route('/led/<code>')
 def led_code(code):
     if code.isnumeric():
-        ledHandler.runLed(int(code));
+        #ledHandler.runLed(int(code));
         return make_response(jsonify({"info":"OK",}),200)
     else:
         return make_response(jsonify({"info":"Led Error Code " + code,}),301)
@@ -137,5 +133,6 @@ def set_sound(volume):
   backgroundSound.set_volume(GPIOHandler.volume)
 
 if __name__ == '__main__':
+    timer.start()  # Start the timer before running the app
     app.run(debug=False, host= '0.0.0.0', port=5000)
    
