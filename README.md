@@ -186,6 +186,66 @@ GPIO 22: Ball dispenser button
 GPIO 23: Ball dispenser output
 ```
 
+## Network Configuration
+
+### Set Fixed IP Address
+
+To assign a static IP address to your Raspberry Pi:
+
+#### Method 1: Using dhcpcd (Recommended)
+
+Edit the dhcpcd configuration file:
+```bash
+sudo nano /etc/dhcpcd.conf
+```
+
+Add the following lines at the end (adjust values for your network):
+```bash
+# Static IP configuration
+interface eth0  # Use wlan0 for WiFi
+static ip_address=10.72.5.212/24
+static routers=10.72.5.1
+static domain_name_servers=10.72.5.1 8.8.8.8
+```
+
+Save and reboot:
+```bash
+sudo reboot
+```
+
+#### Method 2: Using NetworkManager (Raspberry Pi OS Bookworm)
+
+```bash
+# For Ethernet
+sudo nmcli con mod "Wired connection 1" ipv4.addresses 10.72.5.212/24
+sudo nmcli con mod "Wired connection 1" ipv4.gateway 10.72.5.1
+sudo nmcli con mod "Wired connection 1" ipv4.dns "10.72.5.1 8.8.8.8"
+sudo nmcli con mod "Wired connection 1" ipv4.method manual
+sudo nmcli con up "Wired connection 1"
+
+# For WiFi (replace "YourWiFiName" with your SSID)
+sudo nmcli con mod "YourWiFiName" ipv4.addresses 10.72.5.212/24
+sudo nmcli con mod "YourWiFiName" ipv4.gateway 10.72.5.1
+sudo nmcli con mod "YourWiFiName" ipv4.dns "10.72.5.1 8.8.8.8"
+sudo nmcli con mod "YourWiFiName" ipv4.method manual
+sudo nmcli con up "YourWiFiName"
+```
+
+#### Verify Configuration
+
+```bash
+# Check IP address
+ip addr show
+
+# Check connectivity
+ping -c 4 8.8.8.8
+```
+
+**Network Settings Explanation:**
+- `ip_address`: Your desired static IP with subnet mask (e.g., 10.72.5.212/24)
+- `routers`: Your router/gateway IP address
+- `domain_name_servers`: DNS servers (your router and/or Google DNS 8.8.8.8)
+
 ## Troubleshooting
 
 ### I2C Devices Not Found
