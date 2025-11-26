@@ -70,7 +70,9 @@ class Timer(Thread):
     
     def reset_timer(self, time_seconds=None):
         """Reset the timer to specified time or default"""
+        print("in reset timer")
         with self.lock:
+            print("in self.locks")
             if time_seconds is not None:
                 self.time_remaining = time_seconds
             else:
