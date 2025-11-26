@@ -33,23 +33,29 @@ class TimerDisplay:
         mins, secs = divmod(seconds, 60)
         display_str = "{:02d}{:02d}".format(mins, secs)
         
-        with i2c_lock:
-            # Update display 1
-            self.display1.fill(0)
-            self.display1.print(display_str)
-            self.display1.colon = True
-            self.display1.show()
-            
-            # Update display 2
-            self.display2.fill(0)
-            self.display2.print(display_str)
-            self.display2.colon = True
-            self.display2.show()
+        if i2c_lock.acquire(timeout=2.0):
+            try:
+                # Update display 1
+                self.display1.fill(0)
+                self.display1.print(display_str)
+                self.display1.colon = True
+                self.display1.show()
+                
+                # Update display 2
+                self.display2.fill(0)
+                self.display2.print(display_str)
+                self.display2.colon = True
+                self.display2.show()
+            finally:
+                i2c_lock.release()
     
     def clear(self):
         """Clear both displays"""
-        with i2c_lock:
-            self.display1.fill(0)
-            self.display1.show()
-            self.display2.fill(0)
-            self.display2.show()
+        if i2c_lock.acquire(timeout=2.0):
+            try:
+                self.display1.fill(0)
+                self.display1.show()
+                self.display2.fill(0)
+                self.display2.show()
+            finally:
+                i2c_lock.release()
