@@ -1,4 +1,4 @@
-from threading import Thread
+from threading import Thread, current_thread
 from .LedAnimation import LedAnimation
 import RPi.GPIO as GPIO
 import Adafruit_WS2801 as LED
@@ -22,14 +22,15 @@ class LedHandler:
         animation_id = random.randint(1, 9)
         self.runLed(animation_id, loop=True)
 
-    def runLed(self, animationID, loop=True):
+    def runLed(self, animationID, loop=True, from_internal=False):
         """Start an LED animation, stopping any current animation"""
         print(f"Starting animation {animationID} (loop={loop})")
         
         # Stop current animation if running
         if self.current_animation:
             self.current_animation.stop()
-            if self.current_thread:
+            # Only join if we're not being called from the animation thread itself
+            if self.current_thread and not from_internal and self.current_thread != current_thread():
                 self.current_thread.join(timeout=1.0)
         
         # Create new animation
@@ -50,4 +51,4 @@ class LedHandler:
         # If this was a one-time animation (like goal), restart the loop animation
         if not loop and self.loop_animation_id:
             print(f"Restoring loop animation {self.loop_animation_id}")
-            self.runLed(self.loop_animation_id, loop=True)
+            self.runLed(self.loop_animation_id, loop=True, from_internal=True)
