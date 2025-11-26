@@ -1,5 +1,8 @@
 from threading import Thread
-from server.LedAnimation import LedAnimation
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from LedAnimation import LedAnimation
 import RPi.GPIO as GPIO
 import Adafruit_WS2801 as LED
 import Adafruit_GPIO.SPI as SPI

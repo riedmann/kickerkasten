@@ -2,15 +2,15 @@
 Flask server for Kickerkasten (foosball table) controller
 """
 from flask import Flask, jsonify, request, render_template
-from timer import Timer
-from timer_display import TimerDisplay
-from score_manager import ScoreManager
-from score_display import ScoreDisplay
-from gpio_handler import GPIOHandler
-from sound_manager import SoundManager
-from LedHandler import LedHandler
+from .timer import Timer
+from .timer_display import TimerDisplay
+from .score_manager import ScoreManager
+from .score_display import ScoreDisplay
+from .gpio_handler import GPIOHandler
+from .sound_manager import SoundManager
+from .LedHandler import LedHandler
 from time import sleep
-import config
+from . import config
 
 # Initialize Flask app
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
