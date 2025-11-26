@@ -101,6 +101,31 @@ class Timer(Thread):
         
         return result
     
+    def reset_timer_no_display(self, time_seconds=None):
+        """Reset the timer without updating display (for batch operations)"""
+        with self.lock:
+            if time_seconds is not None:
+                self.time_remaining = time_seconds
+            else:
+                self.time_remaining = config.DEFAULT_TIME_TO_RUN
+            
+            self.is_running = False
+            self.is_paused = True
+            
+            return {
+                "status": "reset",
+                "time_remaining": self.time_remaining,
+                "is_paused": self.is_paused
+            }
+    
+    def update_display(self):
+        """Update the display with current time"""
+        with self.lock:
+            current_time = self.time_remaining
+        
+        if self.display:
+            self.display.update(current_time)
+    
     def get_status(self):
         """Get current timer status"""
         with self.lock:

@@ -109,12 +109,15 @@ def reset_timer():
     """Reset the timer to default or specified time"""
     time_param = request.args.get('time', type=int)
     
-    # Reset score to 0:0
-    score = score_manager.reset()
-    score_display.update(score['team_left'], score['team_right'])
+    # Reset timer first (without display update)
+    result = timer.reset_timer_no_display(time_param)
     
-    # Reset timer
-    result = timer.reset_timer(time_param)
+    # Reset score
+    score = score_manager.reset()
+    
+    # Update both displays in sequence (they will acquire i2c_lock internally)
+    score_display.update(score['team_left'], score['team_right'])
+    timer.update_display()
 
     return jsonify({
         "action": "reset",
