@@ -1,5 +1,5 @@
 from threading import Thread
-from LedAnimation import LedAnimation
+from server.LedAnimation import LedAnimation
 
 # Simple demo of of the WS2801/SPI-like addressable RGB LED lights.
 import RPi.GPIO as GPIO

@@ -1,5 +1,5 @@
 from threading import Thread
-from LedAnimation import LedAnimation
+from server.LedAnimation import LedAnimation
 import RPi.GPIO as GPIO
 import Adafruit_WS2801 as LED
 import Adafruit_GPIO.SPI as SPI
