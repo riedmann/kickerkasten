@@ -32,6 +32,7 @@ class ScoreManager:
     
     def reset(self):
         """Reset both scores to 0"""
+        print("Score manager reset")
         with self.lock:
             self.team_left = 0
             self.team_right = 0
