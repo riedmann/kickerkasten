@@ -79,15 +79,17 @@ class Timer(Thread):
             self.is_running = False
             self.is_paused = True
             
-            # Update display if available
-            if self.display:
-                self.display.update(self.time_remaining)
-            
-            return {
+            result = {
                 "status": "reset",
                 "time_remaining": self.time_remaining,
                 "is_paused": self.is_paused
             }
+        
+        # Update display AFTER releasing the lock to avoid potential deadlock
+        if self.display:
+            self.display.update(self.time_remaining)
+        
+        return result
     
     def get_status(self):
         """Get current timer status"""
