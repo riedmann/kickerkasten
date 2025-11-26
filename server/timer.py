@@ -26,8 +26,13 @@ class Timer(Thread):
             
             should_update = False
             current_time = 0
+            is_running_local = False
+            is_paused_local = False
             
             with self.lock:
+                is_running_local = self.is_running
+                is_paused_local = self.is_paused
+                
                 if self.is_running and not self.is_paused and self.time_remaining > 0:
                     self.time_remaining -= 1
                     should_update = True
@@ -37,7 +42,7 @@ class Timer(Thread):
                         self.is_running = False
                         self.is_paused = True
             
-            # Update display outside the lock
+            # Update display outside the lock only when timer is actively counting
             if should_update and self.display:
                 self.display.update(current_time)
     
