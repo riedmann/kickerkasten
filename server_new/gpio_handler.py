@@ -1,7 +1,7 @@
 """
 GPIO handler for goal detection using gpiozero
 """
-from gpiozero import Device, Button
+from gpiozero import Device, Button, OutputDevice
 from gpiozero.pins.lgpio import LGPIOFactory
 import config
 
@@ -37,10 +37,23 @@ class GPIOHandler:
             pull_up=False, 
             bounce_time=bounce_time
         )
+
+        # Ball button and output
+        self.ball_button = Button(
+            config.GPIO_PIN_BALL_BUTTON,
+            pull_up=False,
+            bounce_time=bounce_time
+        )
+        self.ball_output = OutputDevice(config.GPIO_PIN_BALL_OUT, active_high=True, initial_value=False)
+
+        self.ball_button.when_pressed = self._handle_ball_button
         
         # Register event handlers
         self.left_goal_button.when_pressed = self._handle_left_goal
         self.right_goal_button.when_pressed = self._handle_right_goal
+
+        print(f"  Ball button: GPIO {config.GPIO_PIN_BALL_BUTTON}")
+        print(f"  Ball out: GPIO {config.GPIO_PIN_BALL_OUT}")
         
         print("GPIO buttons initialized:")
         print(f"  Left goal: GPIO {config.GPIO_PIN_LEFT_GOAL}")
@@ -71,3 +84,14 @@ class GPIOHandler:
                 print(f"[GPIO] Error in right goal callback: {e}")
         else:
             print("[GPIO] Warning: No callback registered for right goal")
+
+    def _handle_ball_button(self):
+        """Internal handler for ball button press: set output high, then low after short delay."""
+        print(f"[GPIO] Ball button pressed! (GPIO {config.GPIO_PIN_BALL_BUTTON})")
+        try:
+            self.ball_output.on()
+            from threading import Timer as ThreadingTimer
+            ThreadingTimer(0.2, self.ball_output.off).start()  # 200ms pulse
+            print("[GPIO] Ball output set HIGH, will reset LOW after 200ms")
+        except Exception as e:
+            print(f"[GPIO] Error in ball output logic: {e}")

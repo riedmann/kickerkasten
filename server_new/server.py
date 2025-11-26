@@ -174,9 +174,34 @@ def api_info():
             "score": {
                 "/score": "Get current score",
                 "/score/reset": "Reset score to 0:0"
+            },
+            "sound": {
+                "/sound/on": "Turn background sound on",
+                "/sound/off": "Turn background sound off",
+                "/sound/plus": "Increase sound volume",
+                "/sound/minus": "Decrease sound volume",
+                "/sound/normal": "Set sound to normal volume"
+            },
+            "ball": {
+                "/ball/out": "Trigger ball out mechanism"
+            },
+            "frontend": {
+                "/": "Frontend web interface"
             }
         }
     })
+
+
+@app.route('/ball/out', methods=['GET'])
+def ball_out():
+    """Trigger ball out mechanism (set BALL_OUT pin high for 200ms)"""
+    try:
+        gpio_handler.ball_output.on()
+        from threading import Timer as ThreadingTimer
+        ThreadingTimer(0.2, gpio_handler.ball_output.off).start()
+        return jsonify({"action": "ball out triggered"})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':
