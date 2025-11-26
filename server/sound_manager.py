@@ -11,9 +11,8 @@ class SoundManager:
     
     def __init__(self):
         
-        # Load sound files
-        sound_path = os.path.join(os.path.dirname(__file__), '..', 'sound')
-        
+        # Load sound files from config
+        sound_path = config.SOUND_FOLDER
         self.goal_sound = os.path.join(sound_path, 'goal.wav')
         self.start_sound = os.path.join(sound_path, 'start.wav')
         self.nogoal_sound = os.path.join(sound_path, 'nogoal.wav')
