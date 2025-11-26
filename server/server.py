@@ -8,7 +8,7 @@ from score_manager import ScoreManager
 from score_display import ScoreDisplay
 from gpio_handler import GPIOHandler
 from sound_manager import SoundManager
-
+from LedHandler import LedHandler
 from time import sleep
 import config
 
@@ -25,7 +25,8 @@ score_manager = ScoreManager()
 # Initialize sound manager
 sound_manager = SoundManager()
 
-
+# Initialize LedHandler
+led_handler = LedHandler()
 
 # Define goal callbacks
 def on_left_goal():
@@ -218,6 +219,67 @@ def ball_out():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+# LED animation endpoints
+@app.route('/led/1', methods=['GET'])
+def led_1():
+    """Trigger LED animation 1"""
+    led_handler.runLed(1)
+    return jsonify({"action": "LED animation 1 started"})
+
+@app.route('/led/2', methods=['GET'])
+def led_2():
+    """Trigger LED animation 2"""
+    led_handler.runLed(2)
+    return jsonify({"action": "LED animation 2 started"})
+
+@app.route('/led/3', methods=['GET'])
+def led_3():
+    """Trigger LED animation 3"""
+    led_handler.runLed(3)
+    return jsonify({"action": "LED animation 3 started"})
+
+@app.route('/led/4', methods=['GET'])
+def led_4():
+    """Trigger LED animation 4"""
+    led_handler.runLed(4)
+    return jsonify({"action": "LED animation 4 started"})
+
+@app.route('/led/5', methods=['GET'])
+def led_5():
+    """Trigger LED animation 5"""
+    led_handler.runLed(5)
+    return jsonify({"action": "LED animation 5 started"})
+
+@app.route('/led/6', methods=['GET'])
+def led_6():
+    """Trigger LED animation 6"""
+    led_handler.runLed(6)
+    return jsonify({"action": "LED animation 6 started"})
+
+@app.route('/led/7', methods=['GET'])
+def led_7():
+    """Trigger LED animation 7"""
+    led_handler.runLed(7)
+    return jsonify({"action": "LED animation 7 started"})
+
+@app.route('/led/8', methods=['GET'])
+def led_8():
+    """Trigger LED animation 8"""
+    led_handler.runLed(8)
+    return jsonify({"action": "LED animation 8 started"})
+
+@app.route('/led/9', methods=['GET'])
+def led_9():
+    """Trigger LED animation 9"""
+    led_handler.runLed(9)
+    return jsonify({"action": "LED animation 9 started"})
+
+@app.route('/led/10', methods=['GET'])
+def led_10():
+    """Trigger LED animation 10"""
+    led_handler.runLed(10)
+    return jsonify({"action": "LED animation 10 started"})
 
 
 if __name__ == '__main__':
