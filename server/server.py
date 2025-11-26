@@ -114,10 +114,12 @@ def reset_timer():
     
     # Reset score
     score = score_manager.reset()
+    print(f"Score {score}")
     
     # Update both displays in sequence (they will acquire i2c_lock internally)
     score_display.update(score['team_left'], score['team_right'])
     timer.update_display()
+    print("after update")
 
     return jsonify({
         "action": "reset",
