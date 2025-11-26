@@ -62,6 +62,8 @@ gpio_handler = GPIOHandler(on_left_goal=on_left_goal, on_right_goal=on_right_goa
 def on_timer_end():
     """Called when timer reaches 0"""
     sound_manager.play_start()
+    # Switch to pause animation when game ends
+    led_handler.switch_to_pause_mode()
 
 # Initialize timer with display and callback
 timer = Timer(display=timer_display, on_timer_end=on_timer_end)
