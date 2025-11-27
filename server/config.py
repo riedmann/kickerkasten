@@ -17,6 +17,7 @@ DEFAULT_TIME_TO_RUN = 300  # 5 minutes in seconds
 BOUNCETIME = 100  # milliseconds
 
 # MQTT settings
+MQTT_ENABLED = True  # Set to False to disable MQTT
 MQTT_BROKER = "localhost"
 MQTT_PORT = 1883
 MQTT_CLIENT_ID = "kickerkasten"

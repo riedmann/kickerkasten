@@ -80,9 +80,13 @@ timer.start()  # Start the timer thread
 # Set timer reference in LED handler so it can check game state
 led_handler.set_timer(timer)
 
-# Set components in MQTT handler and start it
-mqtt_handler.set_components(timer, score_manager, gpio_handler)
-mqtt_handler.start()
+# Set components in MQTT handler and start it (if enabled)
+if config.MQTT_ENABLED:
+    mqtt_handler.set_components(timer, score_manager, gpio_handler)
+    mqtt_handler.start()
+    print("[MQTT] MQTT handler started")
+else:
+    print("[MQTT] MQTT handler disabled in config")
 
 
 @app.after_request
