@@ -66,6 +66,21 @@ python3 setup.py install
 cd ..
 ```
 
+### 4. Install MQTT Broker
+
+```bash
+# Install Mosquitto MQTT broker
+sudo apt update
+sudo apt install mosquitto mosquitto-clients
+
+# Enable and start service
+sudo systemctl enable mosquitto
+sudo systemctl start mosquitto
+
+# Verify installation
+mosquitto -v
+```
+
 ## Configuration
 
 Edit `server/config.py` to customize:
