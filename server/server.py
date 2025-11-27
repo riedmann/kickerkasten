@@ -9,6 +9,7 @@ from .score_display import ScoreDisplay
 from .gpio_handler import GPIOHandler
 from .sound_manager import SoundManager
 from .LedHandler import LedHandler
+from .mqtt_handler import MQTTHandler
 from time import sleep
 from . import config
 
@@ -27,6 +28,13 @@ sound_manager = SoundManager()
 
 # Initialize LedHandler (will set timer reference later)
 led_handler = LedHandler()
+
+# Initialize MQTT handler
+mqtt_handler = MQTTHandler(
+    broker=config.MQTT_BROKER,
+    port=config.MQTT_PORT,
+    client_id=config.MQTT_CLIENT_ID
+)
 
 # Define goal callbacks
 def on_left_goal():
@@ -71,6 +79,10 @@ timer.start()  # Start the timer thread
 
 # Set timer reference in LED handler so it can check game state
 led_handler.set_timer(timer)
+
+# Set components in MQTT handler and start it
+mqtt_handler.set_components(timer, score_manager)
+mqtt_handler.start()
 
 
 @app.after_request

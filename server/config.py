@@ -16,5 +16,10 @@ SEVEN_SEGMENT_ADDRESS_GOALS_2 = 0x72
 DEFAULT_TIME_TO_RUN = 300  # 5 minutes in seconds
 BOUNCETIME = 100  # milliseconds
 
+# MQTT settings
+MQTT_BROKER = "localhost"
+MQTT_PORT = 1883
+MQTT_CLIENT_ID = "kickerkasten"
+
 # Paths
 SOUND_FOLDER = "/home/pi/Documents/kickerkasten/sound"
