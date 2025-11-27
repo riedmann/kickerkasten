@@ -35,7 +35,8 @@ mqtt_handler = MQTTHandler(
     port=config.MQTT_PORT,
     client_id=config.MQTT_CLIENT_ID,
     username=config.MQTT_USERNAME,
-    password=config.MQTT_PASSWORD
+    password=config.MQTT_PASSWORD,
+    topic_prefix=config.MQTT_TOPIC_PREFIX
 )
 
 # Define goal callbacks

@@ -11,7 +11,7 @@ from time import sleep
 class MQTTHandler:
     """Handles MQTT communication for game state and commands"""
     
-    def __init__(self, broker="localhost", port=1883, client_id="kickerkasten", username=None, password=None):
+    def __init__(self, broker="localhost", port=1883, client_id="kickerkasten", username=None, password=None, topic_prefix="kickerkasten"):
         self.broker = broker
         self.port = port
         self.client_id = client_id
@@ -26,10 +26,10 @@ class MQTTHandler:
         self.gpio_handler = None
         
         # MQTT topics
-        self.topic_status = "kickerkasten/status"
-        self.topic_timer = "kickerkasten/timer"
-        self.topic_score = "kickerkasten/score"
-        self.topic_command = "kickerkasten/command"
+        self.topic_status = f"{topic_prefix}/status"
+        self.topic_timer = f"{topic_prefix}/timer"
+        self.topic_score = f"{topic_prefix}/score"
+        self.topic_command = f"{topic_prefix}/command"
         
         # Background publishing thread
         self.publish_thread = None
