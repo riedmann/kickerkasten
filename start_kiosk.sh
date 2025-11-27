@@ -3,6 +3,8 @@
 # Wait for system to be ready
 sleep 10
 
+mosquitto_sub -h localhost -t "test" &
+
 # Navigate to the project directory
 cd /home/pi/Documents/kickerkasten
 
