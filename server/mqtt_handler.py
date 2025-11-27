@@ -74,11 +74,15 @@ class MQTTHandler:
             payload = msg.payload.decode('utf-8')
             print(f"[MQTT] Received on {msg.topic}: {payload}")
             
-            if msg.topic == self.topic_command:
+            # Strip trailing slash for comparison
+            topic = msg.topic.rstrip('/')
+            command_topic = self.topic_command.rstrip('/')
+            
+            if topic == command_topic:
                 print(f"[MQTT DEBUG] Topic matches command topic, calling handle_command...")
                 self.handle_command(payload)
             else:
-                print(f"[MQTT DEBUG] Topic does not match. Expected: {self.topic_command}, Got: {msg.topic}")
+                print(f"[MQTT DEBUG] Topic does not match. Expected: {command_topic}, Got: {topic}")
         except Exception as e:
             print(f"[MQTT] Error processing message: {e}")
             import traceback
