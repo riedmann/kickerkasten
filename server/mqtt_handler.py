@@ -21,6 +21,7 @@ class MQTTHandler:
         # References to game components (set later)
         self.timer = None
         self.score_manager = None
+        self.gpio_handler = None
         
         # MQTT topics
         self.topic_status = "kickerkasten/status"
@@ -32,10 +33,11 @@ class MQTTHandler:
         self.publish_thread = None
         self.should_stop = threading.Event()
         
-    def set_components(self, timer, score_manager):
-        """Set references to timer and score manager"""
+    def set_components(self, timer, score_manager, gpio_handler=None):
+        """Set references to timer, score manager, and gpio handler"""
         self.timer = timer
         self.score_manager = score_manager
+        self.gpio_handler = gpio_handler
     
     def on_connect(self, client, userdata, flags, rc):
         """Callback when connected to MQTT broker"""
@@ -89,6 +91,13 @@ class MQTTHandler:
                 if self.timer:
                     self.timer.reset_timer()
                     print("[MQTT] Command: Reset timer")
+            
+            elif cmd == "ball":
+                if self.gpio_handler:
+                    from threading import Timer as ThreadingTimer
+                    self.gpio_handler.ball_output.on()
+                    ThreadingTimer(0.2, self.gpio_handler.ball_output.off).start()
+                    print("[MQTT] Command: Ball out triggered")
             
             else:
                 print(f"[MQTT] Unknown command: {command}")

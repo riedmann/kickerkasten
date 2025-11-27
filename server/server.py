@@ -81,7 +81,7 @@ timer.start()  # Start the timer thread
 led_handler.set_timer(timer)
 
 # Set components in MQTT handler and start it
-mqtt_handler.set_components(timer, score_manager)
+mqtt_handler.set_components(timer, score_manager, gpio_handler)
 mqtt_handler.start()
 
 
