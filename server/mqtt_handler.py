@@ -11,10 +11,12 @@ from time import sleep
 class MQTTHandler:
     """Handles MQTT communication for game state and commands"""
     
-    def __init__(self, broker="localhost", port=1883, client_id="kickerkasten"):
+    def __init__(self, broker="localhost", port=1883, client_id="kickerkasten", username=None, password=None):
         self.broker = broker
         self.port = port
         self.client_id = client_id
+        self.username = username
+        self.password = password
         self.client = None
         self.connected = False
         
@@ -113,6 +115,11 @@ class MQTTHandler:
             self.client.on_connect = self.on_connect
             self.client.on_disconnect = self.on_disconnect
             self.client.on_message = self.on_message
+            
+            # Set username and password if provided
+            if self.username and self.password:
+                self.client.username_pw_set(self.username, self.password)
+                print(f"[MQTT] Using authentication for user: {self.username}")
             
             # Connect to broker
             print(f"[MQTT] Connecting to {self.broker}:{self.port}...")

@@ -33,7 +33,9 @@ led_handler = LedHandler()
 mqtt_handler = MQTTHandler(
     broker=config.MQTT_BROKER,
     port=config.MQTT_PORT,
-    client_id=config.MQTT_CLIENT_ID
+    client_id=config.MQTT_CLIENT_ID,
+    username=config.MQTT_USERNAME,
+    password=config.MQTT_PASSWORD
 )
 
 # Define goal callbacks

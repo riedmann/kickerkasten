@@ -21,6 +21,8 @@ MQTT_ENABLED = True  # Set to False to disable MQTT
 MQTT_BROKER = "localhost"
 MQTT_PORT = 1883
 MQTT_CLIENT_ID = "kickerkasten"
+MQTT_USERNAME = None  # Set to your username or None for no authentication
+MQTT_PASSWORD = None  # Set to your password or None for no authentication
 
 # Paths
 SOUND_FOLDER = "/home/pi/Documents/kickerkasten/sound"
