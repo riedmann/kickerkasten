@@ -50,6 +50,11 @@ class MQTTHandler:
             # Subscribe to command topic
             result = client.subscribe(self.topic_command)
             print(f"[MQTT] Subscribed to {self.topic_command} - Result: {result}")
+            
+            # Also subscribe to wildcard for debugging
+            result2 = client.subscribe("edu/iot2021/#")
+            print(f"[MQTT DEBUG] Also subscribed to edu/iot2021/# for debugging - Result: {result2}")
+            
             print(f"[MQTT DEBUG] Subscription successful, waiting for messages...")
         else:
             print(f"[MQTT] Connection failed with code {rc}")
