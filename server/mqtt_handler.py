@@ -70,9 +70,21 @@ class MQTTHandler:
             print(f"[MQTT] Error processing message: {e}")
     
     def handle_command(self, command):
-        """Handle incoming commands"""
+        """Handle incoming commands (supports both plain text and JSON)"""
         try:
-            cmd = command.strip().lower()
+            # Try to parse as JSON first
+            try:
+                data = json.loads(command)
+                # If JSON, extract command from "command" or "action" field
+                cmd = data.get("command") or data.get("action") or data.get("cmd")
+                if cmd:
+                    cmd = cmd.strip().lower()
+                else:
+                    print(f"[MQTT] JSON received but no command field found: {command}")
+                    return
+            except json.JSONDecodeError:
+                # Not JSON, treat as plain text
+                cmd = command.strip().lower()
             
             if cmd == "start":
                 if self.timer:
@@ -102,7 +114,7 @@ class MQTTHandler:
                     print("[MQTT] Command: Ball out triggered")
             
             else:
-                print(f"[MQTT] Unknown command: {command}")
+                print(f"[MQTT] Unknown command: {cmd}")
         
         except Exception as e:
             print(f"[MQTT] Error handling command: {e}")
