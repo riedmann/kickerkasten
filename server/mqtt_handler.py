@@ -43,12 +43,14 @@ class MQTTHandler:
     
     def on_connect(self, client, userdata, flags, rc):
         """Callback when connected to MQTT broker"""
+        print(f"[MQTT DEBUG] on_connect called with rc={rc}")
         if rc == 0:
             print(f"[MQTT] Connected to broker at {self.broker}:{self.port}")
             self.connected = True
             # Subscribe to command topic
-            client.subscribe(self.topic_command)
-            print(f"[MQTT] Subscribed to {self.topic_command}")
+            result = client.subscribe(self.topic_command)
+            print(f"[MQTT] Subscribed to {self.topic_command} - Result: {result}")
+            print(f"[MQTT DEBUG] Subscription successful, waiting for messages...")
         else:
             print(f"[MQTT] Connection failed with code {rc}")
             self.connected = False
@@ -60,23 +62,35 @@ class MQTTHandler:
     
     def on_message(self, client, userdata, msg):
         """Callback when message received on subscribed topic"""
+        print(f"[MQTT DEBUG] on_message called!")
+        print(f"[MQTT DEBUG] Topic: {msg.topic}")
+        print(f"[MQTT DEBUG] Payload (raw): {msg.payload}")
         try:
             payload = msg.payload.decode('utf-8')
             print(f"[MQTT] Received on {msg.topic}: {payload}")
             
             if msg.topic == self.topic_command:
+                print(f"[MQTT DEBUG] Topic matches command topic, calling handle_command...")
                 self.handle_command(payload)
+            else:
+                print(f"[MQTT DEBUG] Topic does not match. Expected: {self.topic_command}, Got: {msg.topic}")
         except Exception as e:
             print(f"[MQTT] Error processing message: {e}")
+            import traceback
+            traceback.print_exc()
     
     def handle_command(self, command):
         """Handle incoming commands (supports both plain text and JSON)"""
+        print(f"[MQTT DEBUG] handle_command called with: {command}")
         try:
             # Try to parse as JSON first
             try:
+                print(f"[MQTT DEBUG] Attempting to parse as JSON...")
                 data = json.loads(command)
+                print(f"[MQTT DEBUG] JSON parsed successfully: {data}")
                 # If JSON, extract command from "command" or "action" field
                 cmd = data.get("command") or data.get("action") or data.get("cmd")
+                print(f"[MQTT DEBUG] Extracted command from JSON: {cmd}")
                 if cmd:
                     cmd = cmd.strip().lower()
                 else:
@@ -84,7 +98,10 @@ class MQTTHandler:
                     return
             except json.JSONDecodeError:
                 # Not JSON, treat as plain text
+                print(f"[MQTT DEBUG] Not JSON, treating as plain text")
                 cmd = command.strip().lower()
+            
+            print(f"[MQTT DEBUG] Final command to execute: '{cmd}'")
             
             if cmd == "start":
                 if self.timer:
@@ -122,11 +139,18 @@ class MQTTHandler:
     def start(self):
         """Start MQTT client and background publishing"""
         try:
+            print(f"[MQTT DEBUG] Starting MQTT handler...")
+            print(f"[MQTT DEBUG] Broker: {self.broker}:{self.port}")
+            print(f"[MQTT DEBUG] Client ID: {self.client_id}")
+            print(f"[MQTT DEBUG] Username: {self.username}")
+            print(f"[MQTT DEBUG] Command topic: {self.topic_command}")
+            
             # Initialize MQTT client
             self.client = mqtt.Client(client_id=self.client_id)
             self.client.on_connect = self.on_connect
             self.client.on_disconnect = self.on_disconnect
             self.client.on_message = self.on_message
+            print(f"[MQTT DEBUG] Callbacks registered")
             
             # Set username and password if provided
             if self.username and self.password:
@@ -136,6 +160,7 @@ class MQTTHandler:
             # Connect to broker
             print(f"[MQTT] Connecting to {self.broker}:{self.port}...")
             self.client.connect(self.broker, self.port, keepalive=60)
+            print(f"[MQTT DEBUG] Connect called, waiting for on_connect callback...")
             
             # Start network loop in background
             self.client.loop_start()
