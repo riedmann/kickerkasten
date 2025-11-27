@@ -16,4 +16,4 @@ python3 -m server.server &
 sleep 5
 
 # Start Chromium in kiosk mode
-DISPLAY=:0 chromium-browser --kiosk --incognito --disable-infobars --noerrdialogs --disable-session-crashed-bubble http://localhost:5000
+DISPLAY=:0 chromium-browser --kiosk --incognito --disable-infobars --noerrdialogs --disable-session-crashed-bubble http://localhost:3000
