@@ -14,7 +14,7 @@ SEVEN_SEGMENT_ADDRESS_GOALS_2 = 0x72
 
 # Timer settings
 DEFAULT_TIME_TO_RUN = 300  # 5 minutes in seconds
-BOUNCETIME = 100  # milliseconds
+BOUNCETIME = 80  # milliseconds
 
 # MQTT settings
 MQTT_ENABLED = True  # Set to False to disable MQTT
