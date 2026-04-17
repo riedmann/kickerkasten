@@ -6,11 +6,15 @@ sleep 10
 # Navigate to the project directory
 cd /home/pi/Documents/kickerkasten
 
+# Kill any existing Python processes (server from previous run)
+pkill -f "python3 -m server.server" || true
+sleep 2
+
 # Activate virtual environment
 source venv/bin/activate
 
 # Start the Flask server in the background
-python3 -m server.server
+python3 -m server.server &
 
 # Wait for the server to start
 sleep 5
