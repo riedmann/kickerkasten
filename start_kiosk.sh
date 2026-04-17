@@ -8,10 +8,9 @@ sleep 10
 echo "Navigating to project directory..."
 cd /home/pi/Documents/kickerkasten
 
-# Kill any existing Python server processes to release GPIO
-echo "Checking for existing Python processes..."
-pkill -9 -f "python3 -m server.server" 2>/dev/null && echo "✓ Killed existing server process" || echo "✓ No existing server process found"
-sleep 2
+# Run cleanup script to release GPIO
+echo "Running GPIO cleanup..."
+./cleanup_gpio.sh
 
 # Activate virtual environment
 echo "Activating virtual environment..."

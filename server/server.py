@@ -293,4 +293,10 @@ def led_animation(animation_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=3000)
+    print(\"\\n\" + \"=\"*60)
+    print(\"[SERVER] Kickerkasten Server Starting\")
+    print(\"=\"*60)
+    print(\"[SERVER] Access at: http://localhost:3000\")
+    print(\"[SERVER] Debug mode: OFF (prevents GPIO reloader issues)\")
+    print(\"=\"*60 + \"\\n\")
+    app.run(debug=False, host='0.0.0.0', port=3000)
