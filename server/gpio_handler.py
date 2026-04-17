@@ -95,3 +95,15 @@ class GPIOHandler:
             print("[GPIO] Ball output set HIGH, will reset LOW after 200ms")
         except Exception as e:
             print(f"[GPIO] Error in ball output logic: {e}")
+
+    def cleanup(self):
+        """Clean up GPIO resources"""
+        print("[GPIO] Cleaning up GPIO resources...")
+        try:
+            self.left_goal_button.close()
+            self.right_goal_button.close()
+            self.ball_button.close()
+            self.ball_output.close()
+            print("[GPIO] GPIO cleanup completed")
+        except Exception as e:
+            print(f"[GPIO] Error during cleanup: {e}")
