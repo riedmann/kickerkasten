@@ -15,7 +15,7 @@ sleep 2
 source venv/bin/activate
 
 # Start the Flask server in the background
-python3 -m server.server &
+python3 -m server.server 
 
 # Wait for the server to start
 sleep 5
