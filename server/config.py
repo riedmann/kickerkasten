@@ -14,7 +14,16 @@ SEVEN_SEGMENT_ADDRESS_GOALS_2 = 0x72
 
 # Timer settings
 DEFAULT_TIME_TO_RUN = 300  # 5 minutes in seconds
-BOUNCETIME = 100  # milliseconds
+BOUNCETIME = 80  # milliseconds
+
+# MQTT settings
+MQTT_ENABLED = True  # Set to False to disable MQTT
+MQTT_BROKER = "letto.htlwrn.ac.at"
+MQTT_PORT = 1883
+MQTT_CLIENT_ID = "kickerkasten"
+MQTT_USERNAME = "iot2021"  # Set to your username or None for no authentication
+MQTT_PASSWORD = "iot2021"
+MQTT_TOPIC_PREFIX = "edu/iot2021"  # Topic prefix for publishing/subscribing
 
 # Paths
 SOUND_FOLDER = "/home/pi/Documents/kickerkasten/sound"

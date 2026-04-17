@@ -2,6 +2,7 @@
 Flask server for Kickerkasten (foosball table) controller
 """
 import logging
+import logging
 from flask import Flask, jsonify, request, render_template
 from .timer import Timer
 from .timer_display import TimerDisplay
@@ -21,28 +22,37 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Initialize Flask app
+print("[SERVER] Initializing Flask app...")
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
 
 # Initialize displays
+print("[SERVER] Initializing displays...")
 timer_display = TimerDisplay()
 score_display = ScoreDisplay()
 
 # Initialize score manager
+print("[SERVER] Initializing score manager...")
 score_manager = ScoreManager()
 
 # Initialize sound manager
+print("[SERVER] Initializing sound manager...")
 sound_manager = SoundManager()
 
 # Initialize LedHandler (will set timer reference later)
+print("[SERVER] Initializing LED handler...")
 led_handler = LedHandler()
+
+print("[SERVER] Setting up goal callbacks...")
 
 # Define goal callbacks
 def on_left_goal():
     """Called when left team scores"""
     logger.debug("on_left_goal() called")
+    logger.debug("on_left_goal() called")
     # Check if timer is running
     if timer.is_running and not timer.is_paused:
         # Valid goal
+        logger.debug("Left team goal - valid (timer running)")
         logger.debug("Left team goal - valid (timer running)")
         sound_manager.play_goal()
         led_handler.runLed(10, loop=False)  # Play goal animation once
@@ -70,7 +80,9 @@ def on_right_goal():
         sound_manager.play_nogoal()
 
 # Initialize GPIO handler
+print("[SERVER] Initializing GPIO handler...")
 gpio_handler = GPIOHandler(on_left_goal=on_left_goal, on_right_goal=on_right_goal)
+print("[SERVER] GPIO handler initialized successfully")
 
 # Define timer end callback
 def on_timer_end():
@@ -81,11 +93,16 @@ def on_timer_end():
     led_handler.switch_to_pause_mode()
 
 # Initialize timer with display and callback
+print("[SERVER] Initializing timer...")
 timer = Timer(display=timer_display, on_timer_end=on_timer_end)
 timer.start()  # Start the timer thread
+print("[SERVER] Timer started")
 
 # Set timer reference in LED handler so it can check game state
 led_handler.set_timer(timer)
+
+print("[SERVER] All components initialized successfully")
+print("[SERVER] Server is ready to receive requests")
 
 
 @app.after_request

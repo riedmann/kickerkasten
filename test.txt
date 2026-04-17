@@ -1,0 +1,310 @@
+MQTT DEBUG] on_connect called with rc=0
+[MQTT] Connected to broker at letto.htlwrn.ac.at:1883
+[MQTT] Subscribed to edu/iot2021/command - Result: (<MQTTErrorCode.MQTT_ERR_SUCCESS: 0>, 1)
+[MQTT DEBUG] Also subscribed to edu/iot2021/# for debugging - Result: (<MQTTErrorCode.MQTT_ERR_SUCCESS: 0>, 2)
+[MQTT DEBUG] Subscription successful, waiting for messages...
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/zec/Alarm
+[MQTT DEBUG] Payload (raw): b'false'
+[MQTT] Received on edu/iot2021/zec/Alarm: false
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/zec/Alarm
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:16] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:16] "GET /score HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:17] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:17] "GET /score HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:18] "GET /score HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:18] "GET /timer/status HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/command/
+[MQTT DEBUG] Payload (raw): b'{"command":"start"}'
+[MQTT] Received on edu/iot2021/command/: {"command":"start"}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/command/
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:19] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:19] "GET /score HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:20] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:20] "GET /score HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:21] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:21] "GET /score HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:22] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:22] "GET /score HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/command/
+[MQTT DEBUG] Payload (raw): b'{"command":"start"}'
+[MQTT] Received on edu/iot2021/command/: {"command":"start"}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/command/
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:23] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:23] "GET /score HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:24] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:24] "GET /score HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:25] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:25] "GET /score HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/command/
+[MQTT DEBUG] Payload (raw): b'{"command":"start"}'
+[MQTT] Received on edu/iot2021/command/: {"command":"start"}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/command/
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:26] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:26] "GET /score HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:27] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:27] "GET /score HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:28] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:28] "GET /score HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:29] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:29] "GET /score HTTP/1.1" 200 -
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+10.72.5.212 - - [25/Nov/2025 09:14:30] "GET /timer/status HTTP/1.1" 200 -
+10.72.5.212 - - [25/Nov/2025 09:14:30] "GET /score HTTP/1.1" 200 -
+^C[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/timer
+[MQTT DEBUG] Payload (raw): b'{"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}'
+[MQTT] Received on edu/iot2021/timer: {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/timer
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/score
+[MQTT DEBUG] Payload (raw): b'{"team_left": 0, "team_right": 0}'
+[MQTT] Received on edu/iot2021/score: {"team_left": 0, "team_right": 0}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/score
+[MQTT DEBUG] on_message called!
+[MQTT DEBUG] Topic: edu/iot2021/status
+[MQTT DEBUG] Payload (raw): b'{"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}'
+[MQTT] Received on edu/iot2021/status: {"timer": {"time_remaining": 300, "time_formatted": "05:00", "is_running": false, "is_paused": true}, "score": {"team_left": 0, "team_right": 0}}
+[MQTT DEBUG] Topic does not match. Expected: edu/iot2021/command, Got: edu/iot2021/status

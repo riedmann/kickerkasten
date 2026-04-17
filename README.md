@@ -51,6 +51,9 @@ pip install adafruit-circuitpython-ht16k33
 
 # Audio playback
 pip3 install simpleaudio
+
+# MQTT client
+pip3 install paho-mqtt
 ```
 
 ### 3. Install WS2801 LED Library
@@ -63,6 +66,21 @@ python3 setup.py install
 cd ..
 ```
 
+### 4. Install MQTT Broker
+
+```bash
+# Install Mosquitto MQTT broker
+sudo apt update
+sudo apt install mosquitto mosquitto-clients
+
+# Enable and start service
+sudo systemctl enable mosquitto
+sudo systemctl start mosquitto
+
+# Verify installation
+mosquitto -v
+```
+
 ## Configuration
 
 Edit `server/config.py` to customize:
@@ -71,6 +89,88 @@ Edit `server/config.py` to customize:
 - I2C addresses for displays
 - Default game timer duration (300 seconds)
 - Sound file paths
+- MQTT broker settings (host, port, client ID)
+
+## MQTT Integration
+
+The server publishes game state to MQTT topics and accepts commands.
+
+### Install MQTT Broker (Mosquitto)
+
+```bash
+# Install Mosquitto broker
+sudo apt update
+sudo apt install mosquitto mosquitto-clients
+
+# Enable and start service
+sudo systemctl enable mosquitto
+sudo systemctl start mosquitto
+
+# Test broker
+mosquitto_pub -h localhost -t test -m "hello"
+mosquitto_sub -h localhost -t test
+```
+
+### MQTT Topics
+
+**Published Topics (game state):**
+- `kickerkasten/status` - Combined timer and score (every 1 second)
+- `kickerkasten/timer` - Timer state only
+- `kickerkasten/score` - Score only
+
+**Subscribed Topics (commands):**
+- `kickerkasten/command` - Accepts: `start`, `pause`, `stop`, `reset`, `ball`, `ball`
+
+### MQTT Examples
+
+**Subscribe to game status:**
+```bash
+# All status
+mosquitto_sub -h localhost -t "kickerkasten/status"
+
+# Timer only
+mosquitto_sub -h localhost -t "kickerkasten/timer"
+
+# Score only
+mosquitto_sub -h localhost -t "kickerkasten/score"
+```
+
+**Send commands:**
+```bash
+# Start the game
+mosquitto_pub -h localhost -t "kickerkasten/command" -m "start"
+
+# Pause the game
+mosquitto_pub -h localhost -t "kickerkasten/command" -m "pause"
+
+# Stop the game
+mosquitto_pub -h localhost -t "kickerkasten/command" -m "stop"
+
+# Reset timer and score
+mosquitto_pub -h localhost -t "kickerkasten/command" -m "reset"
+
+# Trigger ball dispenser
+mosquitto_pub -h localhost -t "kickerkasten/command" -m "ball"
+
+# Trigger ball dispenser
+mosquitto_pub -h localhost -t "kickerkasten/command" -m "ball"
+```
+
+**Example status message:**
+```json
+{
+  "timer": {
+    "time_remaining": 245,
+    "time_formatted": "04:05",
+    "is_running": true,
+    "is_paused": false
+  },
+  "score": {
+    "team_left": 3,
+    "team_right": 5
+  }
+}
+```
 
 ## Running the Server
 
@@ -138,6 +238,7 @@ kickerkasten/
 │   ├── sound_manager.py       # Audio playback
 │   ├── LedHandler.py          # LED controller
 │   ├── LedAnimation.py        # LED animation patterns
+│   ├── mqtt_handler.py        # MQTT communication
 │   ├── config.py              # Configuration
 │   └── i2c_lock.py            # I2C bus synchronization
 ├── templates/
@@ -188,65 +289,7 @@ GPIO 23: Ball dispenser output
 
 ## Network Configuration
 
-### Set Fixed IP Address
 
-To assign a static IP address to your Raspberry Pi:
-
-#### Method 1: Using dhcpcd (Recommended)
-
-Edit the dhcpcd configuration file:
-```bash
-sudo nano /etc/dhcpcd.conf
-```
-
-Add the following lines at the end (adjust values for your network):
-```bash
-# Static IP configuration
-interface eth0  # Use wlan0 for WiFi
-static ip_address=10.72.5.212/24
-static routers=10.72.5.1
-static domain_name_servers=10.72.5.1 8.8.8.8
-```
-
-Save and reboot:
-```bash
-sudo reboot
-```
-
-#### Method 2: Using NetworkManager (Raspberry Pi OS Bookworm)
-
-```bash
-# For Ethernet
-sudo nmcli con mod "Wired connection 1" ipv4.addresses 10.72.5.212/24
-sudo nmcli con mod "Wired connection 1" ipv4.gateway 10.72.5.1
-sudo nmcli con mod "Wired connection 1" ipv4.dns "10.72.5.1 8.8.8.8"
-sudo nmcli con mod "Wired connection 1" ipv4.method manual
-sudo nmcli con up "Wired connection 1"
-
-# For WiFi (replace "YourWiFiName" with your SSID)
-sudo nmcli con mod "YourWiFiName" ipv4.addresses 10.72.5.212/24
-sudo nmcli con mod "YourWiFiName" ipv4.gateway 10.72.5.1
-sudo nmcli con mod "YourWiFiName" ipv4.dns "10.72.5.1 8.8.8.8"
-sudo nmcli con mod "YourWiFiName" ipv4.method manual
-sudo nmcli con up "YourWiFiName"
-```
-
-#### Verify Configuration
-
-```bash
-# Check IP address
-ip addr show
-
-# Check connectivity
-ping -c 4 8.8.8.8
-```
-
-**Network Settings Explanation:**
-- `ip_address`: Your desired static IP with subnet mask (e.g., 10.72.5.212/24)
-- `routers`: Your router/gateway IP address
-- `domain_name_servers`: DNS servers (your router and/or Google DNS 8.8.8.8)
-
-## Troubleshooting
 
 ### I2C Devices Not Found
 ```bash
@@ -283,6 +326,35 @@ aplay -l
 
 # Test audio file
 aplay sound/start.wav
+```
+
+### MQTT Not Connecting
+```bash
+# Check if Mosquitto is running
+sudo systemctl status mosquitto
+
+# Start Mosquitto
+sudo systemctl start mosquitto
+
+# Check broker logs
+sudo journalctl -u mosquitto -f
+
+# Test broker connection
+mosquitto_pub -h localhost -t test -m "hello"
+```
+
+### MQTT Not Receiving Messages
+```bash
+# Check if server is publishing
+mosquitto_sub -h localhost -t "kickerkasten/#" -v
+
+# Check broker configuration
+sudo nano /etc/mosquitto/mosquitto.conf
+
+# Ensure listener is configured
+# Add if missing:
+# listener 1883
+# allow_anonymous true
 ```
 
 ## Development
