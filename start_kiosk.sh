@@ -3,10 +3,13 @@
 # Wait for system to be ready
 sleep 10
 
-mosquitto_sub -h localhost -t "test" &
-
 # Navigate to the project directory
 cd /home/pi/Documents/kickerkasten
+
+# Kill any existing Python server processes to release GPIO
+echo "Checking for existing Python processes..."
+pkill -9 -f "python3 -m server.server" 2>/dev/null && echo "Killed existing server process" || echo "No existing server process found"
+sleep 2
 
 # Activate virtual environment
 source venv/bin/activate
