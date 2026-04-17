@@ -36,5 +36,5 @@ else
 fi
 
 # Start Chromium in kiosk mode
-#echo "Starting Chromium in kiosk mode..."
-#DISPLAY=:0 chromium-browser --kiosk --incognito --disable-infobars --noerrdialogs --disable-session-crashed-bubble http://localhost:3000
+echo "Starting Chromium in kiosk mode..."
+DISPLAY=:0 chromium-browser --kiosk --incognito --disable-infobars --noerrdialogs --disable-session-crashed-bubble http://localhost:3000
