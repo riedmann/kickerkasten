@@ -281,7 +281,7 @@ def ball_out():
 @app.route('/led/<int:animation_id>', methods=['GET'])
 def led_animation(animation_id):
     """Trigger LED animation by ID (1-10)"""
-    logger.debug(f"led_animation() - Triggering LED animation {animation_id}")"
+    logger.debug(f"led_animation() - Triggering LED animation {animation_id}")
     if 1 <= animation_id <= 10:
         # Animation 10 is for goals (one-time), others loop
         loop = (animation_id != 10)
